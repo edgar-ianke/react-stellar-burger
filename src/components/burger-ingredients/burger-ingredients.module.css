@@ -1,0 +1,11 @@
+.main {
+  position: relative;
+  width: 600px;
+  height: 85vh;
+  min-height: calc(100vh - 168px);
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
