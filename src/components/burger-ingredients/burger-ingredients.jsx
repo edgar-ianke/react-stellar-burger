@@ -20,7 +20,7 @@ export default function BurgerIngredients(props) {
     <>
       <section className={burgerIngredientsStyles.main}>
         <h1 className="text text_type_main-large pt-10 pb-5">Соберите бургер</h1>
-        <nav className={`${burgerIngredientsStyles.tabs} mb-10`}>
+        <nav className={`${burgerIngredientsStyles.tabs}`}>
           {tabBar.map((el, i) => {
             return (
               <Tab key={i + 1} value={el.name} active={activeTab === el.name} onClick={handleClick}>

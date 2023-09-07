@@ -10,7 +10,7 @@ export default function IngredientsSection(props) {
         {props.type.map((tab, ind) => {
           return (
             <div key={ind}>
-              <h2 name={tab.type}  className="text text_type_main-medium">
+              <h2 name={tab.type}  className="text text_type_main-medium pt-10">
                 {tab.name}
               </h2>
               <ul className={`${IngredientsSectionStyles.container}`}>
