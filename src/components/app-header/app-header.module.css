@@ -1,10 +1,17 @@
-.header {
-  align-items: center;
+.decor {
+  width: 100%;
   background-color: #1c1c21;
+}
+
+.header {
+  margin: 0 auto;
+  align-items: center;
   display: flex;
-  max-width: 100%;
+  width: 1280px;
   height: 88px;
-  justify-content: center;
+  justify-content: space-between;
+  white-space: nowrap;
+  position: relative;
 }
 .menu {
   display: flex;
@@ -12,6 +19,11 @@
   color: inherit;
 }
 .logo {
-  margin-left: 112px;
-  margin-right: 288px;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+.icons {
+  display: flex;
 }

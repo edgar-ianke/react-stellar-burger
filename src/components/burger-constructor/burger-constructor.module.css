@@ -1,0 +1,55 @@
+.main {
+  position: relative;
+  width: 624px;
+  margin-left: 40px;
+  padding-left: 16px;
+}
+
+.products {
+  overflow-y: scroll;
+  height: 400px;
+  overflow-x: hidden;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: max-content;
+  gap: 16px;
+  text-indent: 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.products::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2f2f37;
+}
+
+.products::-webkit-scrollbar-thumb {
+  width: 8px;
+  background-color: #8585ad;
+}
+
+.priceSection {
+  display: flex;
+  height: 64px;
+  align-items: center;
+  justify-content: end;
+}
+.bun {
+  padding-left: 32px;
+}
+.ingr {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.drag {
+  margin-right: 8px;
+}
+
+.icon svg{
+  width: 36px;
+  height: 36px;
+  margin-left: 8px;
+}

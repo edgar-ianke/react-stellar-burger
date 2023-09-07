@@ -1,18 +1,36 @@
 import IngredientsSectionStyles from "./ingredients-section.module.css";
-import Ingredients from "../ingredients/ingredients";
-import { data } from "../../utils/data";
+import Ingredient from "../ingredient/ingredient";
+import PropTypes from "prop-types";
+import { ingredientPropType } from "../../utils/prop-types";
 
-export default function IngredientsSection() {
+export default function IngredientsSection(props) {
   return (
     <>
       <div className={IngredientsSectionStyles.main}>
-          <h2 name='Булки' className="text text_type_main-medium">Булки</h2>
-          <Ingredients data={data} type={'bun'} key={data._id}/>
-          <h2 name='Соусы' className="text text_type_main-medium">Соусы</h2>
-          <Ingredients data={data} type={'sauce'} key={data._id}/>
-          <h2 name='Начинки' className="text text_type_main-medium">Начинки</h2>
-          <Ingredients data={data} type={'main'} key={data._id}/>
-        </div>
+        {props.type.map((tab, ind) => {
+          return (
+            <div key={ind}>
+              <h2 name={tab.type}  className="text text_type_main-medium">
+                {tab.name}
+              </h2>
+              <ul className={`${IngredientsSectionStyles.container}`}>
+                {props.data.map((item, i) => {
+                  return tab.type === item.type && <Ingredient key={i} data={item} />;
+                })}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 }
+IngredientsSection.propTypes = {
+  data: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
+  type: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }).isRequired
+  ),
+};
