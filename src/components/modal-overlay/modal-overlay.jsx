@@ -18,6 +18,7 @@ export default function ModalOverlay(props) {
   };
   React.useEffect(() => {
     document.addEventListener("keydown", handleEscClose);
+    return () => document.addEventListener("keydown", handleEscClose);
   }, []);
   return ReactDOM.createPortal(
     <>
@@ -30,5 +31,4 @@ export default function ModalOverlay(props) {
 }
 ModalOverlay.propTypes = {
   onClose: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired
 };

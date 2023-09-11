@@ -2,7 +2,6 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import ingredientStyles from "./ingredient.module.css";
 import React from "react";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import PropTypes from "prop-types";
 import { ingredientPropType } from "../../utils/prop-types";
 
 export default function Ingredient(props) {

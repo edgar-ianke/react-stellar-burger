@@ -12,9 +12,9 @@ export default function BurgerIngredients(props) {
     { name: "Начинки", type: "main" },
   ];
 
-  const [activeTab, setactiveTab] = React.useState(tabBar[0].name);
+  const [activeTab, setActiveTab] = React.useState(tabBar[0].name);
   const handleClick = (e) => {
-    setactiveTab(e);
+    setActiveTab(e);
   };
   return (
     <>
@@ -35,5 +35,5 @@ export default function BurgerIngredients(props) {
   );
 }
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType).isRequired,
+  data: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
 };

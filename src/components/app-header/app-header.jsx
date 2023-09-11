@@ -4,26 +4,24 @@ import appHeaderStyles from "./app-header.module.css";
 export default function AppHeader() {
   return (
     <>
-      <header className={appHeaderStyles.decor}>
-        <nav className={appHeaderStyles.header}>
-          <div className={appHeaderStyles.icons}>
-            <a href="#" className={`${appHeaderStyles.menu} p-5`}>
-              <BurgerIcon type="primary" />
-              <p className="text text_type_main-default pl-2">Конструктор</p>
-            </a>
-            <a href="#" className={`${appHeaderStyles.menu} p-5 ml-2`}>
-              <ListIcon type="secondary" />
-              <p className="text text_type_main-default pl-2">Лента заказов</p>
-            </a>
-          </div>
-          <div className={appHeaderStyles.logo}>
-            <Logo />
-          </div>
+      <header className={appHeaderStyles.header}>
+        <div className={appHeaderStyles.icons}>
           <a href="#" className={`${appHeaderStyles.menu} p-5`}>
-            <ProfileIcon type="secondary" />
-            <p className="text text_type_main-default pl-2">Личный кабинет</p>
+            <BurgerIcon type="primary" />
+            <p className="text text_type_main-default pl-2">Конструктор</p>
           </a>
-        </nav>
+          <a href="#" className={`${appHeaderStyles.menu} p-5 ml-2`}>
+            <ListIcon type="secondary" />
+            <p className="text text_type_main-default pl-2">Лента заказов</p>
+          </a>
+        </div>
+        <div className={appHeaderStyles.logo}>
+          <Logo />
+        </div>
+        <a href="#" className={`${appHeaderStyles.menu} p-5`}>
+          <ProfileIcon type="secondary" />
+          <p className="text text_type_main-default pl-2">Личный кабинет</p>
+        </a>
       </header>
     </>
   );

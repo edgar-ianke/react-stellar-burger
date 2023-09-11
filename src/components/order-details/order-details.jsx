@@ -1,8 +1,7 @@
 import doneImg from "../../done.svg";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import orderDetailsStyles from "./order-details.module.css";
-import ModalOverlay from "../modal-overlay/modal-overlay";
 import Modal from "../modal/modal";
+import PropTypes from "prop-types";
 
 export default function OrderDetails(props) {
   const orderNumber = 1337;
@@ -18,3 +17,7 @@ export default function OrderDetails(props) {
       </Modal>
   );
 }
+OrderDetails.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  openModal: PropTypes.func,
+};
