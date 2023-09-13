@@ -1,9 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import ModalOverlayStyles from "./modal-overlay.module.css";
 import PropTypes from "prop-types";
-
-const modalRoot = document.getElementById("modal-root");
 
 export default function ModalOverlay(props) {
   const handleOverlayClose = (evt) => {
@@ -20,14 +17,7 @@ export default function ModalOverlay(props) {
     document.addEventListener("keydown", handleEscClose);
     return () => document.addEventListener("keydown", handleEscClose);
   }, []);
-  return ReactDOM.createPortal(
-    <>
-      <div onClick={handleOverlayClose} className={ModalOverlayStyles.main}>
-        {props.children}
-      </div>
-    </>,
-    modalRoot
-  );
+  return <div onClick={handleOverlayClose} className={ModalOverlayStyles.main}></div>;
 }
 ModalOverlay.propTypes = {
   onClose: PropTypes.func.isRequired,
