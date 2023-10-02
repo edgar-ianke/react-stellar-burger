@@ -1,4 +1,4 @@
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientStyles from "./ingredient.module.css";
 import React from "react";
 import IngredientDetails from "../ingredient-details/ingredient-details";
@@ -16,10 +16,15 @@ export default function Ingredient(props) {
 
   const detailsModal = <IngredientDetails onClose={closeDetails} item={props.data} />;
 
+  const counter = 1
+
   return (
     <>
       <li onClick={openDetails} className={`${ingredientStyles.card} ml-4 mr-6 mb-10 mt-6`}>
         <img src={props.data.image} className={`${ingredientStyles.img} pl-4 pb-1 pr-4`} />
+        {counter && (
+        <Counter count={counter} size="default" extraClass="m-1" />
+      )}
         <div className={ingredientStyles.price}>
           <p className="text text_type_digits-default pr-1">{props.data.price}</p>
           <CurrencyIcon key= {props.data._id} type="primary" />

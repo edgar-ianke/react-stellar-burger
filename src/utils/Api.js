@@ -1,4 +1,4 @@
-const url = "https://norma.nomoreparties.space/api/ingredients";
+const url = "https://norma.nomoreparties.space/api";
 
 class Api {
   constructor(url) {
@@ -18,7 +18,18 @@ class Api {
   }
 
   getData() {
-    return fetch(this.url).then(this._checkResponse);
+    return fetch(`${this.url}/ingredients`).then(this._checkResponse);
+  }
+  postOrder(order) {
+    return fetch(`${this.url}/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        'ingredients': order,
+      }),
+    }).then(this._checkResponse);
   }
 }
 export const api = new Api(url);

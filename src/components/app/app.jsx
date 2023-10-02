@@ -4,6 +4,7 @@ import BurgerConsturctor from "../burger-constructor/burger-constructor";
 import appStyles from "./app.module.css";
 import React, { useEffect } from "react";
 import { api } from "../../utils/Api";
+import { BurgerContext } from "../../services/burgerContext";
 
 function App() {
   const [state, setState] = React.useState({ isLoading: null, data: [] });
@@ -26,10 +27,12 @@ function App() {
     state.isLoading === false && (
       <>
         <AppHeader />
-        <main className={appStyles.main}>
-          <BurgerIngredients data={state.data} />
-          <BurgerConsturctor data={state.data} />
-        </main>
+        <BurgerContext.Provider value={state}>
+          <main className={appStyles.main}>
+            <BurgerIngredients />
+            <BurgerConsturctor />
+          </main>
+        </BurgerContext.Provider>
       </>
     )
   );
