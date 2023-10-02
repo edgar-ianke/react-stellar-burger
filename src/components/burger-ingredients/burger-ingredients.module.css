@@ -1,0 +1,9 @@
+.main {
+  position: relative;
+  width: 624px;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
