@@ -4,8 +4,11 @@ import burgerIngredientsStyles from "./burger-ingredients.module.css";
 import IngredientsSection from "../ingredients-section/ingredients-section";
 import PropTypes from "prop-types";
 import { ingredientPropType } from "../../utils/prop-types";
+import { BurgerContext } from "../../services/burgerContext";
 
-export default function BurgerIngredients(props) {
+export default function BurgerIngredients() {
+  const ingredients = React.useContext(BurgerContext)
+
   const tabBar = [
     { name: "Булки", type: "bun" },
     { name: "Соусы", type: "sauce" },
@@ -29,11 +32,8 @@ export default function BurgerIngredients(props) {
             );
           })}
         </nav>
-        <IngredientsSection type={tabBar} data={props.data}/>
+        <IngredientsSection type={tabBar} data={ingredients.data}/>
       </section>
     </>
   );
 }
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
-};

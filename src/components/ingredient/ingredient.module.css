@@ -18,7 +18,7 @@
   outline: 1px solid rgba(76, 76, 255, 0.05);
   box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
     0px 0px 1px rgba(0, 0, 0, 0.04);
-    border-radius: 20px;
+  border-radius: 20px;
 }
 
 .price {
@@ -34,4 +34,8 @@
 .img {
   width: 240px;
   height: 120px;
+}
+
+li {
+  position: relative;
 }

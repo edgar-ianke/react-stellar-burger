@@ -4,24 +4,40 @@ import React from "react";
 import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
 import { ingredientPropType } from "../../utils/prop-types";
+import { BurgerContext } from "../../services/burgerContext";
+import { api } from "../../utils/Api";
 
-export default function BurgerConstructor(props) {
-  const bun = props.data.filter((item) => item.type === "bun")[0];
+export default function BurgerConstructor() {
+  const ingredients = React.useContext(BurgerContext);
+  const bun = ingredients.data.filter((item) => item.type === "bun")[0];
   const [visible, setVisible] = React.useState(false);
-
-  const cart = props.data.map((item) => {
+  const [orderNumber, setOrder] = React.useState(null);
+  const [isLoading, setLoading] = React.useState(false);
+  const cart = ingredients.data.map((item) => {
     return item.type !== "bun" && item.price;
   });
   const totalPrice = 2 * bun.price + cart.reduce((acc, currVal) => acc + currVal, 0);
 
+  const getOrderIds = () => {
+    const orderIds = cart.map((item) => item._id);
+    orderIds.push(bun._id);
+    orderIds.unshift(bun._id);
+    return orderIds;
+  };
+
   const openModal = () => {
+    setLoading(true)
     setVisible(true);
+    api.postOrder(getOrderIds()).then((res) => {
+      setOrder(res.order.number);
+      setLoading(false)
+
+    })
   };
   const closeModal = () => {
     setVisible(false);
   };
-
-  const modal = <OrderDetails onClose={closeModal}></OrderDetails>;
+  const modal = <OrderDetails orderNumber={orderNumber} isLoading={isLoading} onClose={closeModal}></OrderDetails>;
 
   return (
     <>
@@ -37,7 +53,7 @@ export default function BurgerConstructor(props) {
           />
         </div>
         <ul className={burgerConstructorStyle.products}>
-          {props.data.map((item, i) => {
+          {ingredients.data.map((item, i) => {
             return (
               item.type !== "bun" && (
                 <li key={i} className={burgerConstructorStyle.ingr}>
@@ -74,6 +90,3 @@ export default function BurgerConstructor(props) {
     </>
   );
 }
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
-};

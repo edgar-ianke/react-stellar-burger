@@ -35,4 +35,6 @@ export default function IngredientDetails(props) {
 }
 IngredientDetails.propTypes = {
   item: ingredientPropType.isRequired,
+  onClose: PropTypes.func,
+  openModal: PropTypes.func
 };
