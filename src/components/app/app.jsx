@@ -2,39 +2,32 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConsturctor from "../burger-constructor/burger-constructor";
 import appStyles from "./app.module.css";
-import React, { useEffect } from "react";
+import React from "react";
 import { api } from "../../utils/Api";
-import { BurgerContext } from "../../services/burgerContext";
+import { useDispatch, useSelector } from "react-redux";
+import { getIngredients } from "../../services/actions";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-  const [state, setState] = React.useState({ isLoading: null, data: [] });
-  const getData = () => {
-    setState({ ...state, isLoading: true });
-    api
-      .getData()
-      .then((res) => {
-        setState({ isLoading: false, data: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-        setState({ ...state, isLoading: false });
-      });
-  };
+  const dispatch = useDispatch();
+  const { isLoading, loadingSuccess, burgerIngredients } = useSelector((store) => store.burger);
   React.useEffect(() => {
-    getData();
+    dispatch(getIngredients());
   }, []);
-  return (
-    state.isLoading === false && (
-      <>
-        <AppHeader />
-        <BurgerContext.Provider value={state}>
-          <main className={appStyles.main}>
-            <BurgerIngredients />
-            <BurgerConsturctor />
-          </main>
-        </BurgerContext.Provider>
-      </>
-    )
+
+  return !isLoading ? (
+    <>
+      <AppHeader />
+      <main className={appStyles.main}>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConsturctor />
+        </DndProvider>
+      </main>
+    </>
+  ) : (
+    <p>Загрузка...</p>
   );
 }
 

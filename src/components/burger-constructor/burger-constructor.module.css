@@ -4,10 +4,16 @@
   margin-left: 40px;
   padding-left: 16px;
 }
+.mainOnHover {
+  position: relative;
+  width: 624px;
+  margin-left: 40px;
+  padding-left: 16px;
+  background-color: #1c1c21;
+}
 
 .products {
-  overflow-y: scroll;
-  height: 400px;
+  max-height: 400px;
   overflow-x: hidden;
   display: grid;
   grid-template-rows: 1fr;
@@ -48,8 +54,12 @@
   margin-right: 8px;
 }
 
-.icon svg{
+.icon svg {
   width: 36px;
   height: 36px;
   margin-left: 8px;
+}
+.thumbNail img,
+.thumbNail svg {
+  opacity: 0;
 }

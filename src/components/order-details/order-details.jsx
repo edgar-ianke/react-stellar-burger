@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 export default function OrderDetails(props) {
   const orderNumber = props.orderNumber;
   return (
-      <Modal isLoading = {props.isLoading} onClose={props.onClose} openModal={props.openModal}>
+      <Modal>
         <p className={orderDetailsStyles.orderNumber}>{orderNumber}</p>
         <p className="text text_type_main-medium pb-15">идентификатор заказа</p>
         <img src={doneImg} />
