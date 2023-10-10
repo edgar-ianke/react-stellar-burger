@@ -17,9 +17,3 @@
   top: 60px;
   cursor: pointer;
 }
-
-.loader {
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-}

@@ -2,9 +2,10 @@ import doneImg from "../../done.svg";
 import orderDetailsStyles from "./order-details.module.css";
 import Modal from "../modal/modal";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-export default function OrderDetails(props) {
-  const orderNumber = props.orderNumber;
+export default function OrderDetails() {
+  const orderNumber = useSelector((store) => store.burger.createdOrder);
   return (
       <Modal>
         <p className={orderDetailsStyles.orderNumber}>{orderNumber}</p>
@@ -17,8 +18,3 @@ export default function OrderDetails(props) {
       </Modal>
   );
 }
-OrderDetails.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  openModal: PropTypes.func,
-  isLoading: PropTypes.bool,
-};

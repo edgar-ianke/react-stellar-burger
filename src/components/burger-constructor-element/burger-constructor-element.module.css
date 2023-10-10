@@ -1,0 +1,9 @@
+.ingr {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.drag {
+  margin-right: 8px;
+}

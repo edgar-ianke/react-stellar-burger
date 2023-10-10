@@ -44,15 +44,7 @@
 .bun {
   padding-left: 32px;
 }
-.ingr {
-  display: flex;
-  align-items: center;
-  margin-right: 8px;
-}
 
-.drag {
-  margin-right: 8px;
-}
 
 .icon svg {
   width: 36px;

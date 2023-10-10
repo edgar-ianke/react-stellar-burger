@@ -4,5 +4,12 @@
   justify-content: space-between;
   max-width: 1240px;
   height: calc(100vh - 128px - 2px);
-
+}
+.loader {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }

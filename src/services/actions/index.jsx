@@ -8,6 +8,7 @@ export const CLOSE_MODAL = "CLOSE_MODAL";
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const REMOVE_INGREDIENT = "REMOVE_INGREDIENT";
 export const POST_ORDER_SUCCESS = "POST_ORDER_SUCCESS";
+export const MOVE_INGREDIENT = "MOVE_INGREDIENT";
 
 export const getIngredients = () => (dispatch) => {
   dispatch({ type: REQUEST_PENDING });

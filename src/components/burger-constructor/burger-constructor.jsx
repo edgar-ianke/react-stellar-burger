@@ -1,17 +1,21 @@
 import burgerConstructorStyle from "./burger-constructor.module.css";
-import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useMemo } from "react";
+import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_INGREDIENT, CLOSE_MODAL, REMOVE_INGREDIENT } from "../../services/actions";
+import { ADD_INGREDIENT } from "../../services/actions";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import thumbNail from "../../img/drag.png";
 import { postOrderThunk } from "../../services/actions";
+import OrderDetails from "../order-details/order-details";
+import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
+import update from "immutability-helper";
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const { bun, ingredients } = useSelector((store) => store.burger.constructorIngredients);
-  const { visible, isOrderEmpty, isLoading, createdOrder } = useSelector((store) => store.burger);
+  const { visible, isOrderEmpty, createdOrder } = useSelector((store) => store.burger);
+  const [cards, setCards] = useState([...ingredients]);
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "item",
@@ -22,9 +26,7 @@ export default function BurgerConstructor() {
       isOver: monitor.isOver(),
     }),
   }));
-  const handleDelete = (key) => {
-    dispatch({ type: REMOVE_INGREDIENT, key: key });
-  };
+
   const mainStyle = isOver ? burgerConstructorStyle.mainOnHover : burgerConstructorStyle.main;
   const totalPrice = useMemo(() => {
     if (isOrderEmpty) {
@@ -34,30 +36,10 @@ export default function BurgerConstructor() {
     }
   }, [ingredients, bun, isOrderEmpty]);
 
-  dispatch(postOrderThunk(orderIds))
-
-  // const getOrderIds = () => {
-  //   const orderIds = ingredients.map((item) => {
-  //     console.log(item);
-  //     return item._id;
-  //   });
-  //   orderIds.push(bun._id);
-  //   orderIds.unshift(bun._id);
-  //   return orderIds;
-  // };
-
-  const openModal = () => {
-    setLoading(true);
-    setVisible(true);
-    api.postOrder(getOrderIds()).then((res) => {
-      setOrder(res.order.number);
-      setLoading(false);
-    });
+  const submitOrder = () => {
+    const orderIds = [bun, ...ingredients, bun];
+    dispatch(postOrderThunk(orderIds));
   };
-  const closeModal = () => {
-    dispatch({ type: CLOSE_MODAL });
-  };
-  // const modal = <OrderDetails orderNumber={orderNumber} isLoading={isLoading} onClose={closeModal}></OrderDetails>;
   const content = (
     <div>
       <div className={`${burgerConstructorStyle.bun} pb-4`}>
@@ -83,20 +65,7 @@ export default function BurgerConstructor() {
       {
         <ul className={burgerConstructorStyle.products}>
           {ingredients?.map((item, i) => {
-            return (
-              <li key={i} className={burgerConstructorStyle.ingr}>
-                <span className={burgerConstructorStyle.drag}>
-                  <DragIcon type="primary" />
-                </span>
-                <ConstructorElement
-                  key={i}
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
-                  handleClose={() => handleDelete(item.key)}
-                />
-              </li>
-            );
+            return <BurgerConstructorElement index={i} key={i} data={item} />;
           })}
         </ul>
       }
@@ -126,7 +95,7 @@ export default function BurgerConstructor() {
         <span className={burgerConstructorStyle.icon}>
           <CurrencyIcon type="primary" />
         </span>
-        <Button htmlType="button" type="primary" size="large" extraClass="ml-10 mr-4">
+        <Button htmlType="button" onClick={submitOrder} type="primary" size="large" extraClass="ml-10 mr-4">
           Оформить заказ
         </Button>
       </div>
@@ -141,7 +110,7 @@ export default function BurgerConstructor() {
           <p className="text text_type_main-medium pl-4">Перетащите ингредиенты и булки для составления бургера</p>
         )}
       </section>
-      {/* {visible && modal} */}
+      {visible && Boolean(createdOrder) && <OrderDetails />}
     </>
   );
 }

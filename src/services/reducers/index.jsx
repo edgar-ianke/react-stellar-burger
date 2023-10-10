@@ -7,6 +7,8 @@ import {
   CLOSE_MODAL,
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
+  POST_ORDER_SUCCESS,
+  MOVE_INGREDIENT,
 } from "../actions";
 
 const initialState = {
@@ -32,13 +34,13 @@ const burgerReducer = (state = initialState, action) => {
       return { ...state, burgerIngredients: action.data, isLoading: false, loadingSuccess: true };
     }
     case POST_ORDER_SUCCESS: {
-      return { ...state, createdOrder: action.payload, isLoading: false, loadingSuccess: true };
+      return { ...state, createdOrder: action.payload, isLoading: false, loadingSuccess: true, visible: true };
     }
     case OPEN_INGREDIENT_DETAILS: {
       return { ...state, currentIngredient: action.data, visible: true };
     }
     case CLOSE_MODAL: {
-      return { ...state, currentIngredient: null, visible: false };
+      return { ...state, currentIngredient: null, createdOrder: null, visible: false };
     }
     case ADD_INGREDIENT: {
       return action.data.type === "bun"
@@ -61,12 +63,17 @@ const burgerReducer = (state = initialState, action) => {
         ...state,
         constructorIngredients: {
           ...state.constructorIngredients,
-          ingredients: [...state.constructorIngredients.ingredients.filter((item) => {
-            console.log(`${action.key} - экшн ${item.key} - итем`)
-            return action.key !== item.key})],
+          ingredients: [
+            ...state.constructorIngredients.ingredients.filter((item) => {
+              return action.key !== item.key;
+            }),
+          ],
         },
         visible: false,
       };
+    }
+    case MOVE_INGREDIENT: {
+      return { ...state, constructorIngredients: { ...state.constructorIngredients, ingredients: action.data } };
     }
     default: {
       return state;

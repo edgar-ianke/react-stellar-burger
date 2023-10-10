@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import Loader from "react-js-loader";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,7 +28,9 @@ function App() {
       </main>
     </>
   ) : (
-    <p>Загрузка...</p>
+    <div className={appStyles.loader}>
+      <Loader type="spinner-default" bgColor={"#FFFFFF"} title={""} color={"#FFFFFF"} size={250} />
+    </div>
   );
 }
 
