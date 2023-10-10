@@ -1,3 +1,4 @@
+import update from "immutability-helper";
 import { combineReducers } from "redux";
 import {
   REQUEST_FAILED,
@@ -73,7 +74,15 @@ const burgerReducer = (state = initialState, action) => {
       };
     }
     case MOVE_INGREDIENT: {
-      return { ...state, constructorIngredients: { ...state.constructorIngredients, ingredients: action.data } };
+      const newIngredients = [...state.constructorIngredients.ingredients];
+      newIngredients.splice(action.data.hoverIndex, 0, newIngredients.splice(action.data.dragIndex, 1)[0]);
+      return {
+        ...state,
+        constructorIngredients: {
+          ...state.constructorIngredients,
+          ingredients: newIngredients,
+        },
+      };
     }
     default: {
       return state;

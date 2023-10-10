@@ -7,6 +7,7 @@ import { useRef, useEffect } from "react";
 import update from "immutability-helper";
 
 export default function BurgerConstructorElement({ data, index }) {
+  console.log(data)
   const id = data._id;
   const dispatch = useDispatch();
   const ingredients = useSelector((store) => store.burger.constructorIngredients.ingredients);
@@ -57,8 +58,10 @@ export default function BurgerConstructorElement({ data, index }) {
           [hoverIndex, 0, ingredients[dragIndex]],
         ],
       });
-      dispatch({ type: MOVE_INGREDIENT, data: newArr });
+      console.log(newArr)
       item.index = hoverIndex;
+      dispatch({ type: MOVE_INGREDIENT, data: { hoverIndex: hoverIndex, dragIndex: dragIndex } });
+
       return;
     },
   });
