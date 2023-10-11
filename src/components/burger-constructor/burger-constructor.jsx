@@ -1,6 +1,6 @@
 import burgerConstructorStyle from "./burger-constructor.module.css";
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_INGREDIENT } from "../../services/actions";
 import { useDrop } from "react-dnd";
@@ -9,13 +9,11 @@ import thumbNail from "../../img/drag.png";
 import { postOrderThunk } from "../../services/actions";
 import OrderDetails from "../order-details/order-details";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
-import update from "immutability-helper";
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const { bun, ingredients } = useSelector((store) => store.burger.constructorIngredients);
-  const { visible, isOrderEmpty, createdOrder } = useSelector((store) => store.burger);
-  const [cards, setCards] = useState([...ingredients]);
+  const { visible, isOrderEmpty, createdOrder, isOrderLoading } = useSelector((store) => store.burger);
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "item",
@@ -65,7 +63,7 @@ export default function BurgerConstructor() {
       {
         <ul className={burgerConstructorStyle.products}>
           {ingredients?.map((item, i) => {
-            return <BurgerConstructorElement index={i} key={i} data={item} />;
+            return <BurgerConstructorElement index={i} key={item.key} data={item} />;
           })}
         </ul>
       }
@@ -95,9 +93,22 @@ export default function BurgerConstructor() {
         <span className={burgerConstructorStyle.icon}>
           <CurrencyIcon type="primary" />
         </span>
-        <Button htmlType="button" onClick={submitOrder} type="primary" size="large" extraClass="ml-10 mr-4">
-          Оформить заказ
-        </Button>
+        {!isOrderLoading ? (
+          <Button htmlType="button" onClick={submitOrder} type="primary" size="large" extraClass="ml-10 mr-4">
+            Оформить заказ
+          </Button>
+        ) : (
+          <Button
+            disabled={true}
+            htmlType="button"
+            onClick={submitOrder}
+            type="primary"
+            size="large"
+            extraClass="ml-10 mr-4"
+          >
+            Отправляем заказ на кухню...
+          </Button>
+        )}
       </div>
     </div>
   );

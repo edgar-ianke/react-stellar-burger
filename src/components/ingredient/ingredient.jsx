@@ -1,10 +1,9 @@
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientStyles from "./ingredient.module.css";
-import React, { useEffect } from "react";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { ingredientPropType } from "../../utils/prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { CLOSE_MODAL, OPEN_INGREDIENT_DETAILS } from "../../services/actions";
+import { OPEN_INGREDIENT_DETAILS } from "../../services/actions";
 import { useDrag } from "react-dnd";
 
 export default function Ingredient(props) {
@@ -25,7 +24,11 @@ export default function Ingredient(props) {
   };
 
   const counter =
-    data.type === 'bun' && data._id === bun?._id ? 2 : data.type !== "bun" ? ingredients?.filter((item) => item._id === data._id).length : null;
+    data.type === "bun" && data._id === bun?._id
+      ? 2
+      : data.type !== "bun"
+      ? ingredients?.filter((item) => item._id === data._id).length
+      : null;
   return (
     <>
       <li ref={drag} onClick={handleClick} id={data._id} className={`${ingredientStyles.card} ml-4 mr-6 mb-10 mt-6`}>

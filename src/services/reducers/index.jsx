@@ -1,10 +1,11 @@
-import update from "immutability-helper";
 import { combineReducers } from "redux";
 import {
-  REQUEST_FAILED,
   GET_INGREDIENTS_SUCCESS,
-  REQUEST_PENDING,
+  GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_FAILED,
   OPEN_INGREDIENT_DETAILS,
+  POST_ORDER_REQUEST,
+  POST_ORDER_FAILED,
   CLOSE_MODAL,
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
@@ -17,7 +18,8 @@ const initialState = {
   constructorIngredients: { bun: null, ingredients: [] },
   currentIngredient: null,
   createdOrder: null,
-  isLoading: false,
+  isIngredientsLoading: false,
+  isOrderLoading: false,
   loadingSuccess: null,
   visible: false,
   isOrderEmpty: true,
@@ -25,17 +27,31 @@ const initialState = {
 
 const burgerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_PENDING: {
-      return { ...state, isLoading: true };
+    case GET_INGREDIENTS_REQUEST: {
+      return { ...state, isIngredientsLoading: true };
     }
-    case REQUEST_FAILED: {
-      return { ...state, isLoading: false, loadingSuccess: false };
+    case GET_INGREDIENTS_FAILED: {
+      return { ...state, isIngredientsLoading: false, loadingSuccess: false };
     }
     case GET_INGREDIENTS_SUCCESS: {
-      return { ...state, burgerIngredients: action.data, isLoading: false, loadingSuccess: true };
+      return { ...state, burgerIngredients: action.data, isIngredientsLoading: false, loadingSuccess: true };
+    }
+    case POST_ORDER_REQUEST: {
+      return { ...state, isOrderLoading: true };
+    }
+    case POST_ORDER_FAILED: {
+      return { ...state, isOrderLoading: false, loadingSuccess: false };
     }
     case POST_ORDER_SUCCESS: {
-      return { ...state, createdOrder: action.payload, isLoading: false, loadingSuccess: true, visible: true };
+      return {
+        ...state,
+        isOrderEmpty: true,
+        constructorIngredients: { ingredients: [], bun: null },
+        createdOrder: action.payload,
+        isOrderLoading: false,
+        loadingSuccess: true,
+        visible: true,
+      };
     }
     case OPEN_INGREDIENT_DETAILS: {
       return { ...state, currentIngredient: action.data, visible: true };

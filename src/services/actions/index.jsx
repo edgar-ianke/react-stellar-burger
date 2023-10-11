@@ -1,17 +1,20 @@
 import { api } from "../../utils/Api";
 
-export const REQUEST_PENDING = "REQUEST_PENDING";
+export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
+export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const REQUEST_FAILED = " REQUEST_FAILED";
 export const OPEN_INGREDIENT_DETAILS = "OPEN_INGREDIENT_DETAILS";
 export const CLOSE_MODAL = "CLOSE_MODAL";
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const REMOVE_INGREDIENT = "REMOVE_INGREDIENT";
+export const POST_ORDER_REQUEST = "POST_ORDER_REQUEST";
 export const POST_ORDER_SUCCESS = "POST_ORDER_SUCCESS";
+export const POST_ORDER_FAILED = "POST_ORDER_FAILED";
 export const MOVE_INGREDIENT = "MOVE_INGREDIENT";
 
 export const getIngredients = () => (dispatch) => {
-  dispatch({ type: REQUEST_PENDING });
+  dispatch({ type: GET_INGREDIENTS_REQUEST });
   api
     .getData()
     .then((res) => {
@@ -19,12 +22,12 @@ export const getIngredients = () => (dispatch) => {
     })
     .catch((err) => {
       console.log(err);
-      dispatch({ type: REQUEST_FAILED });
+      dispatch({ type: GET_INGREDIENTS_FAILED });
     });
 };
 
 export const postOrderThunk = (arr) => (dispatch) => {
-  dispatch({ type: REQUEST_PENDING });
+  dispatch({ type: POST_ORDER_REQUEST });
   api
     .postOrder(arr)
     .then((res) => {
@@ -32,6 +35,6 @@ export const postOrderThunk = (arr) => (dispatch) => {
     })
     .catch((err) => {
       console.log(err);
-      dispatch({ type: REQUEST_FAILED });
+      dispatch({ type: POST_ORDER_FAILED });
     });
 };

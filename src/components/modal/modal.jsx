@@ -11,7 +11,7 @@ export default function Modal(props) {
   const dispatch = useDispatch();
   const isLoading = useSelector((store) => store.burger.isLoading);
   const handleClose = () => {
-    dispatch({type: CLOSE_MODAL});
+    dispatch({ type: CLOSE_MODAL });
   };
   return ReactDOM.createPortal(
     <>

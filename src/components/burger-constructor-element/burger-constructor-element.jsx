@@ -3,13 +3,11 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import { MOVE_INGREDIENT, REMOVE_INGREDIENT } from "../../services/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { useRef, useEffect } from "react";
-import update from "immutability-helper";
+import { useRef } from "react";
 
 export default function BurgerConstructorElement({ data, index }) {
   const id = data._id;
   const dispatch = useDispatch();
-  const ingredients = useSelector((store) => store.burger.constructorIngredients.ingredients);
   const handleDelete = (key) => {
     dispatch({ type: REMOVE_INGREDIENT, key: key });
   };
@@ -51,12 +49,6 @@ export default function BurgerConstructorElement({ data, index }) {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      const newArr = update(ingredients, {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, ingredients[dragIndex]],
-        ],
-      });
       item.index = hoverIndex;
       dispatch({ type: MOVE_INGREDIENT, data: { hoverIndex: hoverIndex, dragIndex: dragIndex } });
 

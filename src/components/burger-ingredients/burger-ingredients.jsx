@@ -1,11 +1,10 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { createRef } from "react";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Ingredient from "../ingredient/ingredient";
 
 export default function BurgerIngredients() {
-  const dispatch = useDispatch();
   const ingredients = useSelector((store) => store.burger.burgerIngredients);
   const tabsRef = createRef();
   const bunRef = createRef();
@@ -22,7 +21,7 @@ export default function BurgerIngredients() {
   const handleTabClick = (ref) => {
     ref.current.scrollIntoView({ behavior: "smooth" });
   };
-  const handleScroll = (evt) => {
+  const handleScroll = () => {
     const distances = [];
     tabBar.forEach((item) => {
       distances.push({
