@@ -34,35 +34,33 @@ export default function BurgerIngredients() {
   };
 
   return (
-    <>
-      <section className={burgerIngredientsStyles.main}>
-        <h1 className="text text_type_main-large pt-10 pb-5">Соберите бургер</h1>
-        <nav className={`${burgerIngredientsStyles.tabs}`} ref={tabsRef}>
-          {tabBar.map((el, i) => {
-            return (
-              <Tab key={i + 1} value={el.name} active={activeTab === el.name} onClick={() => handleTabClick(el.ref)}>
-                {el.name}
-              </Tab>
-            );
-          })}
-        </nav>
-        <div className={burgerIngredientsStyles.section} onScroll={handleScroll}>
-          {tabBar.map((tab, ind) => {
-            return (
-              <div key={ind}>
-                <h2 ref={tab.ref} name={tab.type} className="text text_type_main-medium pt-10">
-                  {tab.name}
-                </h2>
-                <ul className={`${burgerIngredientsStyles.container}`}>
-                  {ingredients.map((item, i) => {
-                    return tab.type === item.type && <Ingredient key={i} data={item} />;
-                  })}
-                </ul>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-    </>
+    <section className={burgerIngredientsStyles.main}>
+      <h1 className="text text_type_main-large pt-10 pb-5">Соберите бургер</h1>
+      <nav className={`${burgerIngredientsStyles.tabs}`} ref={tabsRef}>
+        {tabBar.map((el, i) => {
+          return (
+            <Tab key={i + 1} value={el.name} active={activeTab === el.name} onClick={() => handleTabClick(el.ref)}>
+              {el.name}
+            </Tab>
+          );
+        })}
+      </nav>
+      <div className={burgerIngredientsStyles.section} onScroll={handleScroll}>
+        {tabBar.map((tab, ind) => {
+          return (
+            <div key={ind}>
+              <h2 ref={tab.ref} name={tab.type} className="text text_type_main-medium pt-10">
+                {tab.name}
+              </h2>
+              <ul className={`${burgerIngredientsStyles.container}`}>
+                {ingredients.map((item, i) => {
+                  return tab.type === item.type && <Ingredient key={item._id} data={item} />;
+                })}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }

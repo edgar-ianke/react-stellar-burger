@@ -5,6 +5,7 @@ import { ingredientPropType } from "../../utils/prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { OPEN_INGREDIENT_DETAILS } from "../../services/actions";
 import { useDrag } from "react-dnd";
+import Modal from "../modal/modal";
 
 export default function Ingredient(props) {
   const { bun, ingredients } = useSelector((store) => store.burger.constructorIngredients);
@@ -32,7 +33,7 @@ export default function Ingredient(props) {
   return (
     <>
       <li ref={drag} onClick={handleClick} id={data._id} className={`${ingredientStyles.card} ml-4 mr-6 mb-10 mt-6`}>
-        <img src={data.image} className={`${ingredientStyles.img} pl-4 pb-1 pr-4`} />
+        <img src={data.image} alt={data.name} className={`${ingredientStyles.img} pl-4 pb-1 pr-4`} />
         {counter > 0 && <Counter count={counter} size="default" extraClass="m-1" />}
         <div className={ingredientStyles.price}>
           <p className="text text_type_digits-default pr-1">{data.price}</p>
@@ -40,7 +41,7 @@ export default function Ingredient(props) {
         </div>
         <p className={`${ingredientStyles.name} text text_type_main-default pt-1`}>{data.name}</p>
       </li>
-      {currentIngredient?._id === data._id && <IngredientDetails />}
+      {currentIngredient?._id === data._id && <Modal><IngredientDetails /></Modal>}
     </>
   );
 }

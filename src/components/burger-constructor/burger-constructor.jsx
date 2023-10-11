@@ -9,6 +9,7 @@ import thumbNail from "../../img/drag.png";
 import { postOrderThunk } from "../../services/actions";
 import OrderDetails from "../order-details/order-details";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
+import Modal from "../modal/modal";
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -43,7 +44,6 @@ export default function BurgerConstructor() {
       <div className={`${burgerConstructorStyle.bun} pb-4`}>
         {Boolean(bun) ? (
           <ConstructorElement
-            key={uuidv4()}
             type="top"
             isLocked={true}
             text={`${bun?.name} (верх)`}
@@ -52,7 +52,6 @@ export default function BurgerConstructor() {
           />
         ) : (
           <ConstructorElement
-            key={uuidv4()}
             type="top"
             isLocked={true}
             text="Перетащите булку :)"
@@ -70,7 +69,6 @@ export default function BurgerConstructor() {
       <div className={`${burgerConstructorStyle.bun} pt-4`}>
         {Boolean(bun) ? (
           <ConstructorElement
-            key={uuidv4()}
             type="bot"
             isLocked={true}
             text={`${bun?.name} (низ)`}
@@ -79,7 +77,6 @@ export default function BurgerConstructor() {
           />
         ) : (
           <ConstructorElement
-            key={uuidv4()}
             type="bot"
             isLocked={true}
             text="Перетащите булку :)"
@@ -93,22 +90,18 @@ export default function BurgerConstructor() {
         <span className={burgerConstructorStyle.icon}>
           <CurrencyIcon type="primary" />
         </span>
-        {!isOrderLoading ? (
-          <Button htmlType="button" onClick={submitOrder} type="primary" size="large" extraClass="ml-10 mr-4">
-            Оформить заказ
-          </Button>
-        ) : (
+        {
           <Button
-            disabled={true}
+            disabled={isOrderLoading}
             htmlType="button"
             onClick={submitOrder}
             type="primary"
             size="large"
             extraClass="ml-10 mr-4"
           >
-            Отправляем заказ на кухню...
+            {isOrderLoading ? "Отправляем заказ на кухню..." : "Оформить заказ"}
           </Button>
-        )}
+        }
       </div>
     </div>
   );
@@ -121,7 +114,7 @@ export default function BurgerConstructor() {
           <p className="text text_type_main-medium pl-4">Перетащите ингредиенты и булки для составления бургера</p>
         )}
       </section>
-      {visible && Boolean(createdOrder) && <OrderDetails />}
+      {visible && Boolean(createdOrder) && <Modal><OrderDetails /></Modal>}
     </>
   );
 }

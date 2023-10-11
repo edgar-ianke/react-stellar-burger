@@ -1,11 +1,10 @@
 import ingredientDetailsStyles from "./ingredient-details.module.css";
-import Modal from "../modal/modal";
 import { useSelector } from "react-redux";
 
 export default function IngredientDetails() {
   const currentIngredient = useSelector((store) => store.burger.currentIngredient);
   return (
-    <Modal>
+    <>
       <p className={ingredientDetailsStyles.title}>Детали ингредиента</p>
       <img className={ingredientDetailsStyles.img} src={currentIngredient.image} />
       <p className="text text_type_main-medium pt-4 pb-8">{currentIngredient.name}</p>
@@ -27,6 +26,6 @@ export default function IngredientDetails() {
           <p className="text text_type_digits-default text_color_inactive">{currentIngredient.carbohydrates}</p>
         </li>
       </ul>
-    </Modal>
+    </>
   );
 }

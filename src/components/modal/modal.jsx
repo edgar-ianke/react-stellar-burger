@@ -11,11 +11,11 @@ export default function Modal(props) {
   const dispatch = useDispatch();
   const isLoading = useSelector((store) => store.burger.isLoading);
   const handleClose = () => {
-    dispatch({ type: CLOSE_MODAL });
+    return dispatch({ type: CLOSE_MODAL });
   };
   return ReactDOM.createPortal(
     <>
-      <ModalOverlay />
+      <ModalOverlay  handleClose={handleClose}/>
       <div className={modalStyles.modal}>
         {!isLoading && props.children}
         <div className={modalStyles.closeIcon} onClick={handleClose}>
