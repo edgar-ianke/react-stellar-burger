@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import PuffLoader from "react-spinners/PuffLoader";
+import burgerImg from "../../img/burger-neon.svg";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,9 +27,8 @@ function App() {
         </main>
       </>
   ) : (
-    <div className={appStyles.loader}>
-      <PuffLoader color="#ffffff" size={450} />
-    </div>
+    <img alt='loader' src={burgerImg} className={appStyles.loader}/>
+
   );
 }
 

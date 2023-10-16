@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ADD_INGREDIENT } from "../../services/actions";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
-import thumbNail from "../../img/drag.png";
+import thumbNail from "../../img/thumbNail.png";
 import { postOrderThunk } from "../../services/actions";
 import OrderDetails from "../order-details/order-details";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
@@ -69,7 +69,7 @@ export default function BurgerConstructor() {
       <div className={`${burgerConstructorStyle.bun} pt-4`}>
         {Boolean(bun) ? (
           <ConstructorElement
-            type="bot"
+            type="bottom"
             isLocked={true}
             text={`${bun?.name} (низ)`}
             price={bun?.price}
@@ -77,7 +77,7 @@ export default function BurgerConstructor() {
           />
         ) : (
           <ConstructorElement
-            type="bot"
+            type="bottom"
             isLocked={true}
             text="Перетащите булку :)"
             thumbnail={thumbNail}
