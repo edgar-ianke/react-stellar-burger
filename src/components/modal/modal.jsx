@@ -3,7 +3,7 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { useDispatch, useSelector } from "react-redux";
-import { CLOSE_MODAL } from "../../services/actions";
+import { CLOSE_MODAL } from "../../services/actions/burger";
 
 const modalRoot = document.getElementById("modal-root");
 

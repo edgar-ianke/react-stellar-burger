@@ -2,11 +2,11 @@ import burgerConstructorStyle from "./burger-constructor.module.css";
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_INGREDIENT } from "../../services/actions";
+import { ADD_INGREDIENT } from "../../services/actions/burger";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import thumbNail from "../../img/thumbNail.png";
-import { postOrderThunk } from "../../services/actions";
+import { postOrderThunk } from "../../services/actions/burger";
 import OrderDetails from "../order-details/order-details";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
 import Modal from "../modal/modal";
@@ -96,7 +96,8 @@ export default function BurgerConstructor() {
             htmlType="button"
             onClick={submitOrder}
             type="primary"
-            size="large"
+            
+                         size="large"
             extraClass="ml-10 mr-4"
           >
             {isOrderLoading ? "Отправляем заказ на кухню..." : "Оформить заказ"}

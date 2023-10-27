@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar {
+  padding-right: 60px;
+  padding-top: 180px;
+}
+.tab {
+  width: 320px;
+  height: 64px;
+  cursor: pointer;
+  display: inherit;
+  text-decoration: none;
+  color: inherit;
+}
+.main {
+  padding-top: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.link {
+  color: rgba(76, 76, 255, 1);
+  cursor: pointer;
+}

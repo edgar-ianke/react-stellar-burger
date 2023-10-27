@@ -1,10 +1,3 @@
-.main {
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  max-width: 1240px;
-  height: calc(100vh - 128px - 2px);
-}
 .loader {
   position: absolute;
   top:  calc(50% - 150px);

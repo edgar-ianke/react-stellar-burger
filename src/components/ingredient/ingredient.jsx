@@ -3,7 +3,7 @@ import ingredientStyles from "./ingredient.module.css";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { ingredientPropType } from "../../utils/prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { OPEN_INGREDIENT_DETAILS } from "../../services/actions";
+import { OPEN_INGREDIENT_DETAILS } from "../../services/actions/burger";
 import { useDrag } from "react-dnd";
 import Modal from "../modal/modal";
 

@@ -1,13 +1,16 @@
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConsturctor from "../burger-constructor/burger-constructor";
 import appStyles from "./app.module.css";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from "../../services/actions";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { getIngredients } from "../../services/actions/burger";
 import burgerImg from "../../img/burger-neon.svg";
+import Login from "../../pages/authorization/login";
+import Registration from "../../pages/authorization/registration";
+import ForgotPassword from "../../pages/authorization/forgot-password";
+import ResetPassword from "../../pages/authorization/reset-password";
+import HomePage from "../../pages/home";
+import Profile from "../../pages/authorization/profile";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,17 +21,20 @@ function App() {
 
   return !isIngredientsLoading ? (
     <>
-      <AppHeader />
-      <main className={appStyles.main}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-            <BurgerConsturctor />
-          </DndProvider>
-        </main>
-      </>
+      <Router>
+        <AppHeader />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </Router>
+    </>
   ) : (
-    <img alt='loader' src={burgerImg} className={appStyles.loader}/>
-
+    <img alt="loader" src={burgerImg} className={appStyles.loader} />
   );
 }
 
