@@ -12,7 +12,7 @@ import HomePage from "../../pages/home";
 import Profile from "../../pages/authorization/profile";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import OrderHistory from "../../pages/authorization/order-hist";
-
+import { userThunk } from "../../services/actions/user";
 function App() {
   const dispatch = useDispatch();
   const { isIngredientsLoading } = useSelector((store) => store.burger);

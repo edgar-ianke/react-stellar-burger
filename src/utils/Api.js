@@ -6,15 +6,7 @@ class Api {
   }
 
   _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    if (!res.redirected) {
-      alert(`${res.status} Что-то пошло не так :(`);
-      return;
-    } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
+    return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   }
 
   _refreshToken = () => {
@@ -34,6 +26,7 @@ class Api {
       const res = await fetch(url, options);
       return await this._checkResponse(res);
     } catch (err) {
+      console.log(err)
       if (err.message === "jwt expired") {
         const refreshData = await this._refreshToken();
         if (!refreshData.success) {
@@ -108,14 +101,24 @@ class Api {
       }),
     }).then(this._checkResponse);
   }
-  user() {
+  userGetData() {
     return this._fetchWithRefresh(`${this.url}/auth/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         authorization: localStorage.getItem("accessToken"),
       },
-    }).then(this._checkResponse);
+    });
+  }
+  editProfile(form) {
+    return this._fetchWithRefresh(`${this.url}/auth/user`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
+      },
+      body: JSON.stringify(form)
+    });
   }
 }
 

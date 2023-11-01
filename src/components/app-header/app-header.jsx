@@ -7,10 +7,10 @@ export default function AppHeader() {
     <>
       <header className={appHeaderStyles.header}>
         <div className={appHeaderStyles.icons}>
-          <a href="#" className={`${appHeaderStyles.menu} p-5`}>
+          <Link to='/' className={`${appHeaderStyles.menu} p-5`}>
             <BurgerIcon type="primary" />
             <p className="text text_type_main-default pl-2">Конструктор</p>
-          </a>
+          </Link>
           <Link to='/' className={`${appHeaderStyles.menu} p-5 ml-2`}>
             <ListIcon type="secondary" />
             <p className="text text_type_main-default pl-2">Лента заказов</p>
