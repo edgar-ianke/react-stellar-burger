@@ -1,12 +1,22 @@
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import forgotPasswordStyles from "./authorization.module.css";
+import { api } from "../../utils/Api";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function ForgotPassword() {
+  const navigate = useNavigate();
   React.useEffect(() => {}, []);
   const [value, setValue] = React.useState("");
   const onChange = (e) => {
     setValue(e.target.value);
+  };
+  const handleClick = () => {
+    api.resetPW(value).then(res => {
+     if (res.success) { navigate('/reset-password', {replace: true})}
+     return  
+    });
   };
   return (
     <div className={forgotPasswordStyles.main}>
@@ -19,11 +29,11 @@ export default function ForgotPassword() {
         isIcon={false}
         extraClass="mb-6"
       />
-      <Button htmlType="button" type="primary" size="medium" extraClass="mt-6 mb-20">
-      Восстановить пароль
+      <Button onClick={handleClick} htmlType="button" type="primary" size="medium" extraClass="mt-6 mb-20">
+        Восстановить пароль
       </Button>
       <p className="text text_type_main-small text_color_inactive">
-        Вспомнили пароль? <span className={forgotPasswordStyles.link}>Войти</span>
+        Вспомнили пароль? <Link className={forgotPasswordStyles.link} to='/login'>Войти</Link>
       </p>
     </div>
   );

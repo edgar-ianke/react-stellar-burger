@@ -1,35 +1,42 @@
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import forgotPasswordStyles from "./authorization.module.css";
+import { api } from "../../utils/Api";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function ResetPassword() {
+  const navigate = useNavigate();
   React.useEffect(() => {}, []);
-  const [value, setValue] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [code, setCode] = React.useState("");
   const onChange = (e) => {
-    setValue(e.target.value);
+    e.target.name === "password" ? setPassword(e.target.value) : setCode(e.target.value);
+  };
+  const handleClick = () => {
+    api.changePW(password, code).then((res) => {
+      if (res.success) {
+        navigate("/reset-password", { replace: true });
+      }
+      return;
+    });
   };
   return (
     <div className={forgotPasswordStyles.main}>
       <p className="text text_type_main-medium pb-6">Восстановление пароля</p>
       <PasswordInput
         onChange={onChange}
-        value={value}
+        value={password}
         name={"password"}
         placeholder="Введите новый пароль"
         extraClass="mb-6"
       />
-          <Input
-        onChange={onChange}
-        value={value}
-        name={"password"}
-        placeholder="Введите код из письма"
-        extraClass="mb-6"
-      />
-      <Button htmlType="button" type="primary" size="medium" extraClass="mt-6 mb-20">
+      <Input onChange={onChange} value={code} name={"code"} placeholder="Введите код из письма" extraClass="mb-6" />
+      <Button onClick={handleClick} htmlType="button" type="primary" size="medium" extraClass="mt-6 mb-20">
         Сохранить
       </Button>
       <p className="text text_type_main-small text_color_inactive">
-        Вспомнили пароль? <span className={forgotPasswordStyles.link}>Войти</span>
+        Вспомнили пароль? <Link to='/login' className={forgotPasswordStyles.link}>Войти</Link>
       </p>
     </div>
   );

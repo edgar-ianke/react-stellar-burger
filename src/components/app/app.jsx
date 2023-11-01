@@ -11,6 +11,7 @@ import ResetPassword from "../../pages/authorization/reset-password";
 import HomePage from "../../pages/home";
 import Profile from "../../pages/authorization/profile";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import OrderHistory from "../../pages/authorization/order-hist";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,7 +30,8 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/user" element={<Profile />} />
+          <Route path="/profile/history" element={<OrderHistory />} />
         </Routes>
       </Router>
     </>

@@ -11,15 +11,15 @@ export default function AppHeader() {
             <BurgerIcon type="primary" />
             <p className="text text_type_main-default pl-2">Конструктор</p>
           </a>
-          <a href="#" className={`${appHeaderStyles.menu} p-5 ml-2`}>
+          <Link to='/' className={`${appHeaderStyles.menu} p-5 ml-2`}>
             <ListIcon type="secondary" />
             <p className="text text_type_main-default pl-2">Лента заказов</p>
-          </a>
+          </Link>
         </div>
         <div className={appHeaderStyles.logo}>
           <Logo />
         </div>
-        <Link className={`${appHeaderStyles.menu} p-5`} to="/profile">
+        <Link className={`${appHeaderStyles.menu} p-5`} to="/profile/user">
           <ProfileIcon type="secondary" />
           <p className="text text_type_main-default pl-2">Личный кабинет</p>
         </Link>
