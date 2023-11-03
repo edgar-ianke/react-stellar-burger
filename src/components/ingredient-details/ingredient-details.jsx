@@ -1,29 +1,38 @@
+import { useLocation } from "react-router-dom";
 import ingredientDetailsStyles from "./ingredient-details.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { SET_CURRENT_INGREDIENT } from "../../services/actions/burger";
 
 export default function IngredientDetails() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const id = location.pathname.slice(13);
+  useEffect(() => {
+    dispatch({type: SET_CURRENT_INGREDIENT, payload: id});
+  }, []);
   const currentIngredient = useSelector((store) => store.burger.currentIngredient);
   return (
     <>
       <p className={ingredientDetailsStyles.title}>Детали ингредиента</p>
-      <img className={ingredientDetailsStyles.img} src={currentIngredient.image} />
-      <p className="text text_type_main-medium pt-4 pb-8">{currentIngredient.name}</p>
+      <img className={ingredientDetailsStyles.img} src={currentIngredient?.image} />
+      <p className="text text_type_main-medium pt-4 pb-8">{currentIngredient?.name}</p>
       <ul className={ingredientDetailsStyles.nutritionsList}>
         <li className={ingredientDetailsStyles.nutritions}>
           <p className="text text_type_main-default text_color_inactive">Калории, ккал</p>
-          <p className="text text_type_digits-default text_color_inactive">{currentIngredient.calories}</p>
+          <p className="text text_type_digits-default text_color_inactive">{currentIngredient?.calories}</p>
         </li>
         <li className={ingredientDetailsStyles.nutritions}>
           <p className="text text_type_main-default text_color_inactive">Белки, г</p>
-          <p className="text text_type_digits-default text_color_inactive">{currentIngredient.proteins}</p>
+          <p className="text text_type_digits-default text_color_inactive">{currentIngredient?.proteins}</p>
         </li>
         <li className={ingredientDetailsStyles.nutritions}>
           <p className="text text_type_main-default text_color_inactive">Жиры, г</p>
-          <p className="text text_type_digits-default text_color_inactive">{currentIngredient.fat}</p>
+          <p className="text text_type_digits-default text_color_inactive">{currentIngredient?.fat}</p>
         </li>
         <li className={ingredientDetailsStyles.nutritions}>
           <p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
-          <p className="text text_type_digits-default text_color_inactive">{currentIngredient.carbohydrates}</p>
+          <p className="text text_type_digits-default text_color_inactive">{currentIngredient?.carbohydrates}</p>
         </li>
       </ul>
     </>

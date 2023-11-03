@@ -11,11 +11,11 @@ export default function Registration() {
   const [input, setInput] = useForms();
   const handleClick = (e) => {
     e.preventDefault();
-    api.registration(input).then((res)=> {
+    api.registration(input).then((res) => {
       if (res.success) {
-        navigate('/')
+        navigate("/");
       }
-    })
+    });
   };
   return (
     <div className={registrationStyles.main}>
@@ -34,10 +34,13 @@ export default function Registration() {
         Зарегистрироваться
       </Button>
       <p className="text text_type_main-small text_color_inactive">
-        Уже зарегистрированы?{" "}
-        <Link className={registrationStyles.link} to="/login">
-          Войти
-        </Link>
+        Уже зарегистрированы?
+        <span>
+          {" "}
+          <Link className={registrationStyles.link} to="/login">
+            Войти
+          </Link>
+        </span>
       </p>
     </div>
   );

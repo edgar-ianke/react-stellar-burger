@@ -2,12 +2,17 @@ import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burg
 import React from "react";
 import forgotPasswordStyles from "./authorization.module.css";
 import { api } from "../../utils/Api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function ResetPassword() {
   const navigate = useNavigate();
-  React.useEffect(() => {}, []);
+  const location = useLocation();
+  React.useEffect(() => {
+    if (location.state?.location.pathname !== "/forgot-password") {
+      navigate("/forgot-password", { replace: true });
+    }
+  }, []);
   const [password, setPassword] = React.useState("");
   const [code, setCode] = React.useState("");
   const onChange = (e) => {
@@ -16,7 +21,7 @@ export default function ResetPassword() {
   const handleClick = () => {
     api.changePW(password, code).then((res) => {
       if (res.success) {
-        navigate("/reset-password", { replace: true });
+        navigate("/", { replace: true });
       }
       return;
     });
@@ -36,7 +41,12 @@ export default function ResetPassword() {
         Сохранить
       </Button>
       <p className="text text_type_main-small text_color_inactive">
-        Вспомнили пароль? <Link to='/login' className={forgotPasswordStyles.link}>Войти</Link>
+        Вспомнили пароль?
+      <span>{' '}
+          <Link to="/login" className={forgotPasswordStyles.link}>
+            Войти
+          </Link>
+        </span>
       </p>
     </div>
   );

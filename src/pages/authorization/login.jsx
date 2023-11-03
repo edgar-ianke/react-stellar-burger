@@ -16,7 +16,7 @@ export default function Login() {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(loginThunk(input));
-    navigate('/');
+    navigate("/");
   };
   return (
     <div className={loginStyles.main}>
@@ -34,16 +34,20 @@ export default function Login() {
         Войти
       </Button>
       <p className="text text_type_main-small text_color_inactive">
-        Вы новый пользователь?{" "}
-        <Link className={loginStyles.link} to="/register">
-          Зарегистрироваться
-        </Link>
+        Вы новый пользователь?{' '}
+        <span>
+          <Link className={loginStyles.link} to="/register">
+            Зарегистрироваться
+          </Link>
+        </span>
       </p>
       <p className="text text_type_main-small text_color_inactive mt-4">
-        Забыли пароль?{" "}
-        <Link className={loginStyles.link} to="/forgot-password">
-          Восстановить пароль
-        </Link>
+        Забыли пароль?{' '}
+        <span>
+          <Link className={loginStyles.link} to="/forgot-password">
+            Восстановить пароль
+          </Link>
+        </span>
       </p>
     </div>
   );

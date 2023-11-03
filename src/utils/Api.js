@@ -26,7 +26,7 @@ class Api {
       const res = await fetch(url, options);
       return await this._checkResponse(res);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       if (err.message === "jwt expired") {
         const refreshData = await this._refreshToken();
         if (!refreshData.success) {
@@ -117,7 +117,16 @@ class Api {
         "Content-Type": "application/json",
         authorization: localStorage.getItem("accessToken"),
       },
-      body: JSON.stringify(form)
+      body: JSON.stringify(form),
+    });
+  }
+  logout() {
+    return fetch(`${this.url}/auth/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
     });
   }
 }

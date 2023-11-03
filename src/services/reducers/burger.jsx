@@ -2,7 +2,7 @@ import {
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_FAILED,
-  OPEN_INGREDIENT_DETAILS,
+  OPEN_MODAL,
   POST_ORDER_REQUEST,
   POST_ORDER_FAILED,
   CLOSE_MODAL,
@@ -10,6 +10,7 @@ import {
   REMOVE_INGREDIENT,
   POST_ORDER_SUCCESS,
   MOVE_INGREDIENT,
+  SET_CURRENT_INGREDIENT,
 } from "../actions/burger";
 
 const initialStateBurger = {
@@ -50,13 +51,17 @@ export const burgerReducer = (state = initialStateBurger, action) => {
         isOrderLoading: false,
         loadingSuccess: true,
         visible: true,
+        currentIngredient: null,
       };
     }
-    case OPEN_INGREDIENT_DETAILS: {
-      return { ...state, currentIngredient: action.data, visible: true };
+    case SET_CURRENT_INGREDIENT: {
+      return { ...state, currentIngredient: state.burgerIngredients.find((val) => val._id === action.payload) };
+    }
+    case OPEN_MODAL: {
+      return { ...state, visible: true };
     }
     case CLOSE_MODAL: {
-      return { ...state, currentIngredient: null, createdOrder: null, visible: false };
+      return { ...state, visible: false };
     }
     case ADD_INGREDIENT: {
       return action.data.type === "bun"
@@ -104,5 +109,3 @@ export const burgerReducer = (state = initialStateBurger, action) => {
     }
   }
 };
-
-

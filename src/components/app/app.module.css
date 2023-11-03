@@ -6,6 +6,10 @@
   height: 300px;
   animation: pulse 2s infinite;
 }
+.background {
+  width: 516px;
+  margin: auto;
+}
 @keyframes pulse {
   0% {
     transform: scale(1);

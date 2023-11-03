@@ -1,25 +1,32 @@
-import { LOGIN_REQUEST, LOGIN_REQUEST_SUCCESS, LOGIN_REQUEST_FAILED, GET_USER_DATA } from "../actions/user";
+import {
+  GET_USER_DATA,
+  SET_AUTH_CHECKED,
+  LOGOUT,
+  PW_RESET_REQUEST,
+} from "../actions/user";
 
 const initialStateUser = {
+  isAuthChecked: false,
   loginRequest: false,
   loginSuccess: false,
   loginFailed: false,
   user: null,
+  pwResetRequest: false,
 };
 
 export const userReducer = (state = initialStateUser, action) => {
   switch (action.type) {
-    case LOGIN_REQUEST: {
-      return { ...state, loginRequest: true };
-    }
-    case LOGIN_REQUEST_SUCCESS: {
-      return { ...state, loginRequest: false, loginSuccess: true, loginRequest: false };
-    }
-    case LOGIN_REQUEST_FAILED: {
-      return { ...state, loginRequest: false, loginFailed: true, loginRequest: false };
+    case SET_AUTH_CHECKED: {
+      return { ...state, isAuthChecked: true };
     }
     case GET_USER_DATA: {
       return { ...state, user: { email: action.data.email, name: action.data.name } };
+    }
+    case LOGOUT: {
+      return { ...state, user: null };
+    }
+    case PW_RESET_REQUEST: {
+      return { ...state, pwResetRequest: action.payload };
     }
     default: {
       return state;
