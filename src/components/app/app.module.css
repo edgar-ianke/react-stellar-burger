@@ -4,5 +4,24 @@
   justify-content: space-between;
   max-width: 1240px;
   height: calc(100vh - 128px - 2px);
-
 }
+.loader {
+  position: absolute;
+  top:  calc(50% - 150px);
+  left: calc(50% - 150px);
+  width: 300px;
+  height: 300px;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
