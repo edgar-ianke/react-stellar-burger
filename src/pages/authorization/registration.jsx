@@ -1,21 +1,17 @@
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import registrationStyles from "./authorization.module.css";
-import { Link, useNavigate } from "react-router-dom";
-import { api } from "../../utils/Api";
+import { Link } from "react-router-dom";
 import useForms from "../../services/form";
+import { useDispatch } from "react-redux";
+import { register } from "../../services/actions/user";
 
 export default function Registration() {
-  const navigate = useNavigate();
-  React.useEffect(() => {}, []);
+  const dispatch = useDispatch();
   const [input, setInput] = useForms();
   const handleClick = (e) => {
     e.preventDefault();
-    api.registration(input).then((res) => {
-      if (res.success) {
-        navigate("/");
-      }
-    });
+    dispatch(register(input));
   };
   return (
     <div className={registrationStyles.main}>

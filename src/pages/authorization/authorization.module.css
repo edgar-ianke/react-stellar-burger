@@ -25,3 +25,10 @@
 .note {
   justify-self: center;
 }
+.done {
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  z-index: 4;
+  animation: pulse 2s infinite;
+}

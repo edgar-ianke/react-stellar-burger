@@ -1,12 +1,12 @@
 import { api } from "../../utils/Api";
-import { useNavigate } from "react-router-dom";
+import { OPEN_MODAL } from "./burger";
 
 export const GET_USER_DATA = "GET_USER_DATA";
 export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
 export const LOGOUT = "LOGOUT";
 export const PW_RESET_REQUEST = "PW_RESET_REQUEST";
 
-export const loginThunk = (input) => (dispatch) => {
+export const login = (input) => (dispatch) => {
   api
     .login(input.email, input.password)
     .then((res) => {
@@ -17,17 +17,17 @@ export const loginThunk = (input) => (dispatch) => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      if (err.message === 'email or password are incorrect') {
+        alert(err.message)
+      }
     });
 };
 
-export const userThunk = () => (dispatch) => {
+export const register = (input) => (dispatch) => {
   api
-    .userGetData()
-    .then((res) => {
-      if (res.success) {
-        dispatch({ type: GET_USER_DATA, data: res.user });
-      }
+    .registration(input)
+    .then(() => {
+      dispatch(checkAuth());
     })
     .catch((err) => {
       console.error(err);
@@ -54,10 +54,17 @@ export const checkAuth = () => (dispatch) => {
   }
 };
 
-export const logoutThunk = () => (dispatch) => {
+export const logout = () => (dispatch) => {
   api.logout().then(() => {
     dispatch({ type: LOGOUT });
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+  });
+};
+
+export const editProfile = (input) => (dispatch) => {
+  api.editProfile(input).then(() => {
+    dispatch(checkAuth());
+    dispatch({ type: OPEN_MODAL });
   });
 };

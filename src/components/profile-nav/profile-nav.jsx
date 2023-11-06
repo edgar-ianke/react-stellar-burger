@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
 import navStyles from "./profile-nav.module.css";
 import { useDispatch } from "react-redux";
-import { logoutThunk } from "../../services/actions/user";
+import { logout } from "../../services/actions/user";
 
 export default function ProfileNav() {
   const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(logoutThunk());
+    dispatch(logout());
   };
   const textStyleActive = `${navStyles.tab} text_type_main-medium`;
   const textStyleInactive = `${navStyles.tab} text_type_main-medium text_color_inactive`;

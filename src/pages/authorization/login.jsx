@@ -3,20 +3,16 @@ import React from "react";
 import loginStyles from "./authorization.module.css";
 import { Link } from "react-router-dom";
 import useForms from "../../services/form";
-import { api } from "../../utils/Api";
-import { useNavigate } from "react-router-dom";
-import { loginThunk } from "../../services/actions/user";
+import { login } from "../../services/actions/user";
 import { useDispatch } from "react-redux";
 
 export default function Login() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   React.useEffect(() => {}, []);
   const [input, setInput] = useForms();
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch(loginThunk(input));
-    navigate("/");
+    dispatch(login(input));
   };
   return (
     <div className={loginStyles.main}>

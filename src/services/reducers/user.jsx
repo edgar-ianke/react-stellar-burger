@@ -7,9 +7,6 @@ import {
 
 const initialStateUser = {
   isAuthChecked: false,
-  loginRequest: false,
-  loginSuccess: false,
-  loginFailed: false,
   user: null,
   pwResetRequest: false,
 };

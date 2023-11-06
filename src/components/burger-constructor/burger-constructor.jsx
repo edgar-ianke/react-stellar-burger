@@ -6,7 +6,7 @@ import { ADD_INGREDIENT } from "../../services/actions/burger";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import thumbNail from "../../img/thumbNail.png";
-import { postOrderThunk } from "../../services/actions/burger";
+import { postOrder } from "../../services/actions/burger";
 import OrderDetails from "../order-details/order-details";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
 import Modal from "../modal/modal";
@@ -37,7 +37,7 @@ export default function BurgerConstructor() {
 
   const submitOrder = () => {
     const orderIds = [bun, ...ingredients, bun];
-    dispatch(postOrderThunk(orderIds));
+    dispatch(postOrder(orderIds));
   };
   const content = (
     <div>

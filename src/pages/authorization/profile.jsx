@@ -1,62 +1,70 @@
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useMemo, useState } from "react";
+import React from "react";
 import profileStyles from "./authorization.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileNav from "../../components/profile-nav/profile-nav";
 import useForms from "../../services/form";
-import { api } from "../../utils/Api";
-import { OPEN_MODAL } from "../../services/actions/burger";
+import doneIconStyles from "../../components/order-details/order-details.module.css";
+import doneIcon from "../../done.svg";
+
 import Modal from "../../components/modal/modal";
+import { checkAuth, editProfile } from "../../services/actions/user";
 
 export default function Profile() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user.user);
   const { visible } = useSelector((store) => store.burger);
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    dispatch(checkAuth());
+  }, []);
   const [input, setInput, resetInput, active] = useForms({
     email: user.email,
     password: "",
     name: user.name,
   });
-  const handleEditProfile = () => {
-    api.editProfile(input).then(() => {
-      dispatch({type: OPEN_MODAL})
-    })
+  const handleEditProfile = (e) => {
+    e.preventDefault();
+    dispatch(editProfile(input));
+    resetInput();
+  };
+  const onChange = (e) => {
+    setInput(e);
+    const key = e.target.name;
+    if (e.target.value === user[key]) resetInput();
   };
 
   return (
     <div className={profileStyles.container}>
-      {visible && <Modal><p className={`${profileStyles.note} text text_type_main-large`}>Данные успешно изменены!</p></Modal>}
+      {visible && (
+        <Modal>
+          <p className={`${profileStyles.note} text text_type_main-large`}>Данные успешно изменены!</p>
+        </Modal>
+      )}
       <ProfileNav />
       <div className={profileStyles.main}>
-        <Input
-          type="text"
-          onChange={setInput}
-          value={input.name}
-          placeholder={"Имя"}
-          name="name"
-          extraClass="mb-6"
-        />
+        <Input type="text" onChange={onChange} value={input.name} placeholder={"Имя"} name="name" extraClass="mb-6" />
         <EmailInput
-          onChange={setInput}
+          onChange={onChange}
           value={input.email}
           name={"email"}
           placeholder={"E-mail"}
           isIcon={true}
           extraClass="mb-6"
         />
-        <PasswordInput onChange={setInput} value={input.password} name={"password"} icon="EditIcon" />
+        <PasswordInput onChange={onChange} value={input.password} name={"password"} icon="EditIcon" />
         <div>
-          {<Button
-            onClick={handleEditProfile}
-            htmlType="button"
-            type="primary"
-            size="medium"
-            extraClass="mt-6 mb-20 mr-10"
-            disabled={!active}
-          >
-            Изменить данные профиля
-          </Button>}
+          {
+            <Button
+              onClick={handleEditProfile}
+              htmlType="button"
+              type="primary"
+              size="medium"
+              extraClass="mt-6 mb-20 mr-10"
+              disabled={!active}
+            >
+              Изменить данные профиля
+            </Button>
+          }
           <Button
             onClick={resetInput}
             htmlType="button"

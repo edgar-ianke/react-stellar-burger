@@ -27,7 +27,7 @@ export const getIngredients = () => (dispatch) => {
     });
 };
 
-export const postOrderThunk = (arr) => (dispatch) => {
+export const postOrder = (arr) => (dispatch) => {
   dispatch({ type: POST_ORDER_REQUEST });
   api
     .postOrder(arr)
