@@ -43,7 +43,7 @@ function App() {
           <Route
             path="/ingredients/:ingredientId"
             element={
-              <Modal>
+              <Modal redirectTo = {'/'}>
                 <IngredientDetails />
               </Modal>
             }

@@ -17,8 +17,8 @@ export const login = (input) => (dispatch) => {
       }
     })
     .catch((err) => {
-      if (err.message === 'email or password are incorrect') {
-        alert(err.message)
+      if (err.message === "email or password are incorrect") {
+        alert(err.message);
       }
     });
 };
@@ -55,16 +55,22 @@ export const checkAuth = () => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  api.logout().then(() => {
-    dispatch({ type: LOGOUT });
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-  });
+  api
+    .logout()
+    .then(() => {
+      dispatch({ type: LOGOUT });
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+    })
+    .catch((err) => console.log(err));
 };
 
 export const editProfile = (input) => (dispatch) => {
-  api.editProfile(input).then(() => {
-    dispatch(checkAuth());
-    dispatch({ type: OPEN_MODAL });
-  });
+  api
+    .editProfile(input)
+    .then(() => {
+      dispatch(checkAuth());
+      dispatch({ type: OPEN_MODAL });
+    })
+    .catch((err) => console.log(err));
 };

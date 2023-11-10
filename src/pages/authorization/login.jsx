@@ -10,12 +10,12 @@ export default function Login() {
   const dispatch = useDispatch();
   React.useEffect(() => {}, []);
   const [input, setInput] = useForms();
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(input));
   };
   return (
-    <div className={loginStyles.main}>
+    <form className={loginStyles.main} onSubmit={handleSubmit}>
       <p className="text text_type_main-medium pb-6">Вход</p>
       <EmailInput
         onChange={setInput}
@@ -26,7 +26,7 @@ export default function Login() {
         extraClass="mb-6"
       />
       <PasswordInput onChange={setInput} value={input.password} name={"password"} />
-      <Button onClick={handleClick} htmlType="button" type="primary" size="medium" extraClass="mt-6 mb-20">
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20">
         Войти
       </Button>
       <p className="text text_type_main-small text_color_inactive">
@@ -45,6 +45,6 @@ export default function Login() {
           </Link>
         </span>
       </p>
-    </div>
+    </form>
   );
 }

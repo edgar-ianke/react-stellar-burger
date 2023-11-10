@@ -22,7 +22,7 @@ export default function Profile() {
     password: "",
     name: user.name,
   });
-  const handleEditProfile = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(editProfile(input));
     resetInput();
@@ -41,7 +41,7 @@ export default function Profile() {
         </Modal>
       )}
       <ProfileNav />
-      <div className={profileStyles.main}>
+      <form className={profileStyles.main} onSubmit={handleSubmit}>
         <Input type="text" onChange={onChange} value={input.name} placeholder={"Имя"} name="name" extraClass="mb-6" />
         <EmailInput
           onChange={onChange}
@@ -55,8 +55,7 @@ export default function Profile() {
         <div>
           {
             <Button
-              onClick={handleEditProfile}
-              htmlType="button"
+              htmlType="submit"
               type="primary"
               size="medium"
               extraClass="mt-6 mb-20 mr-10"
@@ -75,7 +74,7 @@ export default function Profile() {
             Сброс
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

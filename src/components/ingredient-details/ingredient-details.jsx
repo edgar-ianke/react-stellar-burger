@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ingredientDetailsStyles from "./ingredient-details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -6,10 +6,9 @@ import { SET_CURRENT_INGREDIENT } from "../../services/actions/burger";
 
 export default function IngredientDetails() {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const id = location.pathname.slice(13);
+  const id = useParams().ingredientId;
   useEffect(() => {
-    dispatch({type: SET_CURRENT_INGREDIENT, payload: id});
+    dispatch({ type: SET_CURRENT_INGREDIENT, payload: id });
   }, []);
   const currentIngredient = useSelector((store) => store.burger.currentIngredient);
   return (

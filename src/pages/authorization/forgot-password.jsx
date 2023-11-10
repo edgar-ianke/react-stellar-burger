@@ -2,7 +2,7 @@ import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer
 import React from "react";
 import forgotPasswordStyles from "./authorization.module.css";
 import { api } from "../../utils/Api";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function ForgotPassword() {
@@ -13,17 +13,17 @@ export default function ForgotPassword() {
   const onChange = (e) => {
     setValue(e.target.value);
   };
-  const handleClick = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     api.resetPW(value).then((res) => {
       if (res.success) {
         return navigate("/reset-password", { replace: true, state: { location } });
-        //  <Navigate to='/reset-password' state={{from: location}}/>
       }
       return;
     });
   };
   return (
-    <div className={forgotPasswordStyles.main}>
+    <form className={forgotPasswordStyles.main} onSubmit={handleSubmit}>
       <p className="text text_type_main-medium pb-6">Восстановление пароля</p>
       <EmailInput
         onChange={onChange}
@@ -33,7 +33,7 @@ export default function ForgotPassword() {
         isIcon={false}
         extraClass="mb-6"
       />
-      <Button onClick={handleClick} htmlType="button" type="primary" size="medium" extraClass="mt-6 mb-20">
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20">
         Восстановить пароль
       </Button>
       <p className="text text_type_main-small text_color_inactive">
@@ -45,6 +45,6 @@ export default function ForgotPassword() {
           </Link>
         </span>
       </p>
-    </div>
+    </form>
   );
 }
