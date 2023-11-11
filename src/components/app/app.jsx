@@ -17,6 +17,7 @@ import { OnlyAuth, OnlyUnAuth } from "../protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Page404 from "../../pages/page404";
+
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -31,7 +32,18 @@ function App() {
     <>
       <AppHeader />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage />}>
+          {background && (
+            <Route
+              path="/ingredients/:ingredientId"
+              element={
+                <Modal redirectTo={"/"} >
+                  <IngredientDetails />
+                </Modal>
+              }
+            />
+          )}
+        </Route>
         <Route path="/feed" element={<Page404 />} />
         <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
@@ -39,16 +51,7 @@ function App() {
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
         <Route path="/profile/user" element={<OnlyAuth component={<Profile />} />} />
         <Route path="/profile/history" element={<OnlyAuth component={<Page404 />} />} />
-        {background ? (
-          <Route
-            path="/ingredients/:ingredientId"
-            element={
-              <Modal redirectTo = {'/'}>
-                <IngredientDetails />
-              </Modal>
-            }
-          />
-        ) : (
+        {!background && (
           <Route
             path="/ingredients/:ingredientId"
             element={
@@ -58,7 +61,7 @@ function App() {
             }
           />
         )}
-        <Route path="*" element={<Page404 />}/>
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </>
   ) : (

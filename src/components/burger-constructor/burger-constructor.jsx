@@ -10,11 +10,14 @@ import { postOrder } from "../../services/actions/burger";
 import OrderDetails from "../order-details/order-details";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
 import Modal from "../modal/modal";
+import { useNavigate } from "react-router-dom";
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const { bun, ingredients } = useSelector((store) => store.burger.constructorIngredients);
   const { visible, isOrderEmpty, createdOrder, isOrderLoading } = useSelector((store) => store.burger);
+  const { user } = useSelector((store) => store.user);
+  const navigate = useNavigate();
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "item",
@@ -36,8 +39,11 @@ export default function BurgerConstructor() {
   }, [ingredients, bun, isOrderEmpty]);
 
   const submitOrder = () => {
-    const orderIds = [bun, ...ingredients, bun];
-    dispatch(postOrder(orderIds));
+    if (user) {
+      const orderIds = [bun, ...ingredients, bun];
+      return dispatch(postOrder(orderIds));
+    }
+    return navigate("/login");
   };
   const content = (
     <div>
@@ -96,8 +102,7 @@ export default function BurgerConstructor() {
             htmlType="button"
             onClick={submitOrder}
             type="primary"
-            
-                         size="large"
+            size="large"
             extraClass="ml-10 mr-4"
           >
             {isOrderLoading ? "Отправляем заказ на кухню..." : "Оформить заказ"}
@@ -115,7 +120,11 @@ export default function BurgerConstructor() {
           <p className="text text_type_main-medium pl-4">Перетащите ингредиенты и булки для составления бургера</p>
         )}
       </section>
-      {visible && Boolean(createdOrder) && <Modal><OrderDetails /></Modal>}
+      {visible && Boolean(createdOrder) && (
+        <Modal>
+          <OrderDetails />
+        </Modal>
+      )}
     </>
   );
 }

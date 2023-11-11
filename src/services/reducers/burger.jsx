@@ -61,7 +61,7 @@ export const burgerReducer = (state = initialStateBurger, action) => {
       return { ...state, visible: true };
     }
     case CLOSE_MODAL: {
-      return { ...state, visible: false };
+      return { ...state, visible: false, createdOrder: null };
     }
     case ADD_INGREDIENT: {
       return action.data.type === "bun"
