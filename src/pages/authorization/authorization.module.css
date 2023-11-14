@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main {
+  padding-top: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.link {
+  color: rgba(76, 76, 255, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+.reset {
+  background-color: rgba(40, 40, 40, 1);
+  color: white;
+}
+.reset:hover {
+  box-shadow: 0 0 1px #fff, 0 0 8px #fff, 0 0 14px #0ba9ca, 0 0 25px;
+}
+.note {
+  justify-self: center;
+}
+.done {
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  z-index: 4;
+  animation: pulse 2s infinite;
+}

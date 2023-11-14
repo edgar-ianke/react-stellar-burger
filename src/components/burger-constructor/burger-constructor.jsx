@@ -2,19 +2,22 @@ import burgerConstructorStyle from "./burger-constructor.module.css";
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_INGREDIENT } from "../../services/actions";
+import { ADD_INGREDIENT } from "../../services/actions/burger";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import thumbNail from "../../img/thumbNail.png";
-import { postOrderThunk } from "../../services/actions";
+import { postOrder } from "../../services/actions/burger";
 import OrderDetails from "../order-details/order-details";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
 import Modal from "../modal/modal";
+import { useNavigate } from "react-router-dom";
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const { bun, ingredients } = useSelector((store) => store.burger.constructorIngredients);
   const { visible, isOrderEmpty, createdOrder, isOrderLoading } = useSelector((store) => store.burger);
+  const { user } = useSelector((store) => store.user);
+  const navigate = useNavigate();
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "item",
@@ -36,8 +39,11 @@ export default function BurgerConstructor() {
   }, [ingredients, bun, isOrderEmpty]);
 
   const submitOrder = () => {
-    const orderIds = [bun, ...ingredients, bun];
-    dispatch(postOrderThunk(orderIds));
+    if (user) {
+      const orderIds = [bun, ...ingredients, bun];
+      return dispatch(postOrder(orderIds));
+    }
+    return navigate("/login");
   };
   const content = (
     <div>
@@ -114,7 +120,11 @@ export default function BurgerConstructor() {
           <p className="text text_type_main-medium pl-4">Перетащите ингредиенты и булки для составления бургера</p>
         )}
       </section>
-      {visible && Boolean(createdOrder) && <Modal><OrderDetails /></Modal>}
+      {visible && Boolean(createdOrder) && (
+        <Modal>
+          <OrderDetails />
+        </Modal>
+      )}
     </>
   );
 }
