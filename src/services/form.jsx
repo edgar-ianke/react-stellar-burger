@@ -10,6 +10,7 @@ export default function useForms(
   const [value, setValue] = React.useState(initialState);
   const [active, setActive] = React.useState(false);
   const resetValue = () => {
+    setValue(initialState)
     setActive(false);
   };
   const onChange = (e) => {
