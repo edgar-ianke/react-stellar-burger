@@ -53,7 +53,7 @@ const wsUserActions = {
 const store = createStore(
   rootReducer,
   composeWithDevTools(
-    applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions), socketMiddleware(wsUserUrl, wsUserActions, localStorage.getItem("accessToken").slice(7)))
+    applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions), socketMiddleware(wsUserUrl, wsUserActions))
   )
 );
 

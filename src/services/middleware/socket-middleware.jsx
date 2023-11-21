@@ -1,17 +1,17 @@
-export const socketMiddleware = (wsUrl, wsActions, token = false) => {
+export const socketMiddleware = (wsUrl, wsActions) => {
   return (store) => {
     let socket = null;
 
     return (next) => (action) => {
       const { dispatch } = store;
-      const { type } = action;
+      const { type, payload } = action;
       const { wsConnect, onOpen, onClose, onError, onMessage, wsDisconnect } = wsActions;
 
       if (type === wsConnect) {
         socket = new WebSocket(wsUrl);
       }
-      if (type === wsConnect && token) {
-        socket = new WebSocket(`${wsUrl}?token=${token}`)
+      if (type === wsConnect && payload) {
+        socket = new WebSocket(`${wsUrl}?token=${payload}`)
       }
 
       if (socket) {

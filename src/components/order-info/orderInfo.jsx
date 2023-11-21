@@ -12,7 +12,7 @@ import { WS_USER_CONNECTION_START } from "../../services/actions/userFeed";
 export default function OrderInfo({ user = false }) {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({ type: WS_USER_CONNECTION_START });
+    dispatch({ type: WS_USER_CONNECTION_START, payload: localStorage.getItem("accessToken").slice(7) });
     dispatch({ type: WS_CONNECTION_START });
   }, []);
   const ingredients = useSelector((store) => store.burger.burgerIngredients);

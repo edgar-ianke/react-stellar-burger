@@ -11,7 +11,7 @@ export default function OrderHistory() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: WS_USER_CONNECTION_START });
+    dispatch({ type: WS_USER_CONNECTION_START, payload: localStorage.getItem("accessToken").slice(7) });
     return () => {
       dispatch({ type: WS_USER_CLOSE_CONNECTION });
     };
