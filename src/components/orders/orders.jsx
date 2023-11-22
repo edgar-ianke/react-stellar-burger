@@ -1,11 +1,12 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ordersStyles from "./orders.module.css";
 import formatDate from "../../utils/formatDate";
-import {  } from "../../services/actions/feed";
-import {  useSelector } from "react-redux";
+import {} from "../../services/actions/feed";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import makeDictionary from "../../utils/makeDictionary";
 import { types } from "../../utils/data";
+import { useMemo } from "react";
 
 export default function Orders({ wide = false, user = false }) {
   const ingredients = useSelector((store) => store.burger.burgerIngredients);
@@ -13,7 +14,7 @@ export default function Orders({ wide = false, user = false }) {
   const ingredientDictionary = makeDictionary(ingredients);
   const ordersAll = useSelector((store) => store.feed.orders);
   const ordersUser = useSelector((store) => store.userFeed.orders);
-  const orders = user ? ordersUser?.reverse() : ordersAll;
+  const orders = useMemo(() => (user ? ordersUser?.reverse() : ordersAll));
 
   return (
     <div className={ordersStyles.orders}>
