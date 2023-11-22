@@ -42,13 +42,24 @@ export default function Profile() {
       )}
       <ProfileNav />
       <form className={profileStyles.main} onSubmit={handleSubmit}>
-        <Input type="text" onChange={onChange} value={input.name} placeholder={"Имя"} name="name" extraClass="mb-6" />
+      <Input
+            type={"text"}
+            onChange={onChange}
+            value={input.name}
+            placeholder={"Имя"}
+            name={"name"}
+            errorText={"Ошибка"}
+            size={"default"}
+            icon={"EditIcon"}
+            extraClass="mb-6"
+          />
         <EmailInput
           onChange={onChange}
           value={input.email}
           name={"email"}
           placeholder={"E-mail"}
-          isIcon={true}
+          isIcon={false}
+          icon={"EditIcon"}
           extraClass="mb-6"
         />
         <PasswordInput onChange={onChange} value={input.password} name={"password"} icon="EditIcon" />
