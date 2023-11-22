@@ -11,12 +11,14 @@ import ResetPassword from "../../pages/authorization/reset-password";
 import HomePage from "../../pages/home/home";
 import Profile from "../../pages/authorization/profile";
 import { Routes, Route, useLocation } from "react-router-dom";
-import OrderHistory from "../../pages/authorization/order-hist";
+import OrderHistory from "../../pages/order-hist/order-hist";
 import { checkAuth } from "../../services/actions/user";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Page404 from "../../pages/page404";
+import Feed from "../../pages/feed/feed";
+import OrderInfo from "../order-info/orderInfo";
 
 function App() {
   const location = useLocation();
@@ -37,26 +39,68 @@ function App() {
             <Route
               path="/ingredients/:ingredientId"
               element={
-                <Modal redirectTo={"/"} >
+                <Modal redirectTo={"/"}>
                   <IngredientDetails />
                 </Modal>
               }
             />
           )}
         </Route>
-        <Route path="/feed" element={<Page404 />} />
+        <Route path="/feed" element={<Feed />}>
+          {background && (
+            <Route
+              path="/feed/:orderId"
+              element={
+                <Modal redirectTo={"/feed"}>
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+          )}
+        </Route>
         <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
         <Route path="/register" element={<OnlyUnAuth component={<Registration />} />} />
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
         <Route path="/profile/user" element={<OnlyAuth component={<Profile />} />} />
-        <Route path="/profile/history" element={<OnlyAuth component={<Page404 />} />} />
+        <Route path="/profile/orders" element={<OnlyAuth component={<OrderHistory />} />}>
+          {background && (
+            <Route
+              path="/profile/orders/:orderId"
+              element={
+                <Modal redirectTo={"/profile/orders"}>
+                  <OrderInfo user={true} />
+                </Modal>
+              }
+            />
+          )}
+        </Route>
         {!background && (
           <Route
             path="/ingredients/:ingredientId"
             element={
               <div className={appStyles.background}>
                 <IngredientDetails />
+              </div>
+            }
+          />
+        )}
+        {!background && (
+          <Route
+            path="/feed/:orderId"
+            element={
+              <div className={appStyles.background}>
+                <OrderInfo />
+              </div>
+            }
+          />
+        )}
+        {!background && (
+          <Route
+            path="/profile/orders/:orderId"
+            element={
+              <div className={appStyles.background}>
+                <OrderInfo user={true} />
               </div>
             }
           />
