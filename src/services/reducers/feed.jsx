@@ -38,7 +38,7 @@ export const wsFeedReducer = (state = initialState, action) => {
       }
       default: {
         return {
-          ...state,
+            state,
         };
       }
     }

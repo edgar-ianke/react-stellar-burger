@@ -34,7 +34,7 @@ export const wsUserFeedReducer = (state = initialState, action) => {
       }
       default: {
         return {
-          ...state,
+          state,
         };
       }
     }
