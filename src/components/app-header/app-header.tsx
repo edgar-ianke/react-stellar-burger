@@ -28,9 +28,9 @@ export default function AppHeader() {
             <p className="text text_type_main-default pl-2">Лента заказов</p>
           </NavLink>
         </div>
-        <div className={appHeaderStyles.logo}>
+        <NavLink to='/' className={appHeaderStyles.logo}>
           <Logo />
-        </div>
+        </NavLink>
         <NavLink className={({ isActive }) => (isActive ? textStyleActive : textStyleInactive)} to="/profile/user">
           <ProfileIcon type={iconStyles.profileIcon} />
           <p className="text text_type_main-default pl-2">Личный кабинет</p>

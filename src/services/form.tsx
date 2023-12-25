@@ -12,11 +12,11 @@ export default function useForms(
     password: "",
     name: "",
   }
-): [TValue, (e: React.ChangeEvent<HTMLInputElement>) => void, () => void, boolean] {
+): [TValue, (e: React.ChangeEvent<HTMLInputElement>) => void, (email: string, name: string) => void, boolean,  React.Dispatch<React.SetStateAction<boolean>>] {
   const [value, setValue] = React.useState<TValue>(initialState);
   const [active, setActive] = React.useState(false);
-  const resetValue = () => {
-    setValue(initialState);
+  const resetValue = (email: string, name: string) => {
+    setValue({ ...value, email: email, name: name });
     setActive(false);
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,5 +24,5 @@ export default function useForms(
     setValue({ ...value, [key]: e.target.value });
     setActive(true);
   };
-  return [value, onChange, resetValue, active];
+  return [value, onChange, resetValue, active, setActive];
 }

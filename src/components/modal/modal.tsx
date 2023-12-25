@@ -14,14 +14,14 @@ interface IModal {
   redirectTo?: string;
 }
 
-const Modal: FC<IModal> = ({ children, redirectTo = '/' }) => {
-  const location = useLocation().pathname;
-  const link = redirectTo;
+const Modal: FC<IModal> = ({ children, redirectTo = "" }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoading = useSelector((store) => store.burger.isLoading);
   const handleClose = () => {
-    navigate(redirectTo, { replace: true });
+    if (redirectTo !== "") {
+      navigate(redirectTo, { replace: true });
+    }
     dispatch({ type: CLOSE_MODAL });
   };
   return ReactDOM.createPortal(

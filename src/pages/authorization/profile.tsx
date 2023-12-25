@@ -17,7 +17,7 @@ export default function Profile() {
   React.useEffect(() => {
     dispatch(checkAuth());
   }, []);
-  const [input, setInput, resetInput, active] = useForms({
+  const [input, setInput, resetInput, active, setActive] = useForms({
     email: user ? user.email : "",
     password: "",
     name: user ? user.name : "",
@@ -26,13 +26,12 @@ export default function Profile() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(editProfile(input));
-    resetInput();
+    resetInput(input.email, input.name);
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e);
     const key = e.target.name;
-      if (user && e.target.value === user[key as keyof typeof user]) resetInput();
-   
+    if (user && e.target.value === user[key as keyof typeof user]) setActive(false);
   };
 
   return (
@@ -71,7 +70,7 @@ export default function Profile() {
             </Button>
           }
           <Button
-            onClick={resetInput}
+            onClick={() => resetInput(user ? user.email : '', user ? user.name : '')}
             htmlType="button"
             type="secondary"
             size="medium"
