@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import profileStyles from "../authorization/authorization.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "../../services/hooks/hooks";
 import ProfileNav from "../../components/profile-nav/profile-nav";
 import {Orders} from "../../components/orders/orders";
 import orderHistStyles from "./order-hist.module.css";

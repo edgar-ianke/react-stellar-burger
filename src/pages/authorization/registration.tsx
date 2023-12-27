@@ -3,7 +3,7 @@ import React from "react";
 import registrationStyles from "./authorization.module.css";
 import { Link } from "react-router-dom";
 import useForms from "../../services/form";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks/hooks";
 import { register } from "../../services/actions/user";
 
 export default function Registration() {

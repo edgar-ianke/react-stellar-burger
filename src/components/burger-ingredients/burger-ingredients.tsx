@@ -18,8 +18,8 @@ export default function BurgerIngredients() {
 
   const [activeTab, setActiveTab] = React.useState(tabBar[0].name);
 
-  const handleTabClick = (ref: any) => {
-    ref.current.scrollIntoView({ behavior: "smooth" });
+  const handleTabClick = (ref: React.RefObject<HTMLHeadingElement>) => {
+    ref.current && ref.current.scrollIntoView({ behavior: "smooth" }) ;
   };
   const handleScroll = () => {
     const distances: Array<{ name: string; distance: number }> = [];
@@ -30,7 +30,7 @@ export default function BurgerIngredients() {
           distance: Math.abs(item.ref.current.getBoundingClientRect().y - tabsRef.current.getBoundingClientRect().y),
         });
       }
-      distances.sort((a: any, b: any) => a.distance - b.distance);
+      distances.sort((a, b) => a.distance - b.distance);
       setActiveTab(distances[0].name);
     });
   };

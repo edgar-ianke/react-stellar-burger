@@ -73,4 +73,3 @@ export type TInitialStateUser = {
   user: null | { name: string; email: string };
   pwResetRequest: boolean;
 };
-

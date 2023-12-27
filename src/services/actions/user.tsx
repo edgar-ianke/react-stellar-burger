@@ -18,7 +18,7 @@ export interface ISetAuthChecked {
 export interface ILogout {
   readonly type: typeof LOGOUT;
 }
-export type TUserActions = IGetUserData | ISetAuthChecked | ILogout
+export type TUserActions = IGetUserData | ISetAuthChecked | ILogout;
 
 export const checkAuth: AppThunk = () => (dispatch: AppDispatch) => {
   if (localStorage.getItem("accessToken")) {
@@ -40,7 +40,7 @@ export const checkAuth: AppThunk = () => (dispatch: AppDispatch) => {
   }
 };
 
-export const login: AppThunk = (input: any) => (dispatch: AppDispatch | AppThunk) => {
+export const login: AppThunk = (input: { email: string; password: string }) => (dispatch: AppDispatch | AppThunk) => {
   api
     .login(input.email, input.password)
     .then((res) => {
@@ -57,22 +57,19 @@ export const login: AppThunk = (input: any) => (dispatch: AppDispatch | AppThunk
     });
 };
 
-export const register: AppThunk = (input: {
-  name: string;
-  email: string;
-  password: string;
-}) => (dispatch:  AppDispatch | AppThunk) => {
-  api
-    .registration(input)
-    .then(() => {
-      dispatch(checkAuth());
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-};
+export const register: AppThunk =
+  (input: { name: string; email: string; password: string }) => (dispatch: AppDispatch | AppThunk) => {
+    api
+      .registration(input)
+      .then(() => {
+        dispatch(checkAuth());
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
-export const logout: AppThunk = () => (dispatch:  AppDispatch | AppThunk) => {
+export const logout: AppThunk = () => (dispatch: AppDispatch | AppThunk) => {
   api
     .logout()
     .then(() => {
@@ -83,16 +80,13 @@ export const logout: AppThunk = () => (dispatch:  AppDispatch | AppThunk) => {
     .catch((err) => console.log(err));
 };
 
-export const editProfile: AppThunk = (input: {
-  name?: string;
-  email?: string;
-  password?: string;
-}) => (dispatch:  AppDispatch | AppThunk) => {
-  api
-    .editProfile(input)
-    .then(() => {
-      dispatch(checkAuth());
-      dispatch({ type: OPEN_MODAL });
-    })
-    .catch((err) => console.log(err));
-};
+export const editProfile: AppThunk =
+  (input: { name?: string; email?: string; password?: string }) => (dispatch: AppDispatch | AppThunk) => {
+    api
+      .editProfile(input)
+      .then(() => {
+        dispatch(checkAuth());
+        dispatch({ type: OPEN_MODAL });
+      })
+      .catch((err) => console.log(err));
+  };

@@ -7,6 +7,46 @@ interface IOptions {
   headers: Record<string, string>;
   body?: string;
 }
+interface IGetData {
+  success: boolean;
+  data: TIngredient[];
+}
+interface IGetToken {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
+}
+interface IUser {
+  success: boolean;
+  user: {
+    email: string;
+    name: string;
+  };
+}
+interface IOrder {
+  success: boolean;
+  name: string;
+  order: {
+    ingredients: TIngredient[];
+    _id: string;
+    owner: {
+      name: string;
+      email: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+    status: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    number: number;
+    price: number;
+  };
+}
+interface IPost {
+  success: boolean;
+  data: string;
+}
 
 class Api {
   readonly url: string;
@@ -14,7 +54,7 @@ class Api {
     this.url = url;
   }
 
-  _checkResponse(res: Response) {
+  _checkResponse<T>(res: Response): Promise<T> {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   }
 
@@ -27,13 +67,13 @@ class Api {
       body: JSON.stringify({
         token: localStorage.getItem("refreshToken"),
       }),
-    }).then(this._checkResponse);
+    }).then(this._checkResponse<IGetToken>);
   };
 
   _fetchWithRefresh = async (url: string, options: IOptions) => {
     try {
       const res = await fetch(url, options);
-      return await this._checkResponse(res);
+      return await this._checkResponse<IUser>(res);
     } catch (err: any) {
       console.log(err);
       if (err.message === "jwt expired") {
@@ -45,7 +85,7 @@ class Api {
         localStorage.setItem("accessToken", refreshData.accessToken);
         options.headers.authorization = refreshData.accessToken;
         const res = await fetch(url, options);
-        return await this._checkResponse(res);
+        return await this._checkResponse<IUser>(res);
       } else {
         return Promise.reject(err);
       }
@@ -53,7 +93,7 @@ class Api {
   };
 
   getData() {
-    return fetch(`${this.url}/ingredients`).then(this._checkResponse);
+    return fetch(`${this.url}/ingredients`).then(this._checkResponse<IGetData>);
   }
   postOrder(order: Array<TIngredient>) {
     return fetch(`${this.url}/orders`, {
@@ -65,7 +105,7 @@ class Api {
       body: JSON.stringify({
         ingredients: order,
       }),
-    }).then(this._checkResponse);
+    }).then(this._checkResponse<IOrder>);
   }
   resetPW(value: string) {
     return fetch(`${this.url}/password-reset`, {
@@ -76,7 +116,7 @@ class Api {
       body: JSON.stringify({
         email: value,
       }),
-    }).then(this._checkResponse);
+    }).then(this._checkResponse<IPost>);
   }
   changePW(newPassword: string, code: string) {
     return fetch(`${this.url}/password-reset/reset`, {
@@ -88,7 +128,7 @@ class Api {
         password: newPassword,
         token: code,
       }),
-    }).then(this._checkResponse);
+    }).then(this._checkResponse<IPost>);
   }
   registration(input: { name: string; email: string; password: string }) {
     return fetch(`${this.url}/auth/register`, {
@@ -97,7 +137,7 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(input),
-    }).then(this._checkResponse);
+    }).then(this._checkResponse<IPost>);
   }
   login(email: string, password: string) {
     return fetch(`${this.url}/auth/login`, {
@@ -109,7 +149,7 @@ class Api {
         email: email,
         password: password,
       }),
-    }).then(this._checkResponse);
+    }).then(this._checkResponse<IPost & IGetToken>);
   }
   userGetData() {
     return this._fetchWithRefresh(`${this.url}/auth/user`, {

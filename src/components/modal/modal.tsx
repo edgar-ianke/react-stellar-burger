@@ -4,10 +4,10 @@ import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { useSelector, useDispatch } from "../../services/hooks/hooks";
 import { CLOSE_MODAL } from "../../services/actions/burger";
-import { useNavigate, useLocation } from "react-router-dom";
-import React, { FC, ReactNode } from "react";
-import { string } from "prop-types";
-const modalRoot: any = document.getElementById("modal-root");
+import { useNavigate } from "react-router-dom";
+import { FC, ReactNode } from "react";
+
+const modalRoot = document.getElementById("modal-root") as HTMLLIElement;
 
 interface IModal {
   children: ReactNode;
